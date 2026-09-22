@@ -1,0 +1,10 @@
+# macOS archive artefacts from the source zip
+__MACOSX/
+.DS_Store
+
+# Source material for the rebuild — not part of the site
+AI L3 Website Rebuild/
+
+# Windows
+Thumbs.db
+desktop.ini
