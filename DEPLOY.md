@@ -1,5 +1,11 @@
 # Deploying to Vercel
 
+**Live:** https://ail3-website.vercel.app
+**Project:** `marko-ail3tech/ail3-website` · **Repo:** `AiL3Tech/AI-L3-Website` · branch `main`
+
+Connected and deploying. Every push to `main` ships to production; every pull
+request gets a preview URL.
+
 The site is static HTML at the repository root. There is no build step, no
 framework, and no dependencies to install. Vercel serves the files as they are.
 
@@ -17,7 +23,7 @@ framework, and no dependencies to install. Vercel serves the files as they are.
 content type for `llms.txt`. Do not add a build command; it will only slow
 deploys down.
 
-## First-time connection
+## First-time connection (already done)
 
 1. Go to **https://vercel.com/new**.
 2. Sign in with the **GitHub account `marko-ail3tech`**. This matters: Vercel

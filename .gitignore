@@ -9,3 +9,6 @@ AI L3 Website Rebuild/
 Thumbs.db
 desktop.ini
 Inspiration resources/
+
+.vercel
+.env*
