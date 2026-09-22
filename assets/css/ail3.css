@@ -908,7 +908,46 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .legal-hero .sub { font-size: .9375rem; color: var(--text-on-dark-muted); }
 
 .legal { background: var(--paper); color: var(--text-on-light); padding-block: var(--space-8) var(--space-9); }
-.legal .wrap { max-width: 880px; }
+
+/* Long legal documents get a jump-link index beside the text */
+.legal-wrap {
+  max-width: 1140px;
+  display: grid;
+  grid-template-columns: 232px minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.legal-body { max-width: 78ch; }
+
+.legal-toc {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.5rem);
+  max-height: calc(100vh - var(--nav-h) - 4rem);
+  overflow-y: auto;
+  border-left: 2px solid var(--line-light);
+  padding-left: var(--space-5);
+}
+.legal-toc-title {
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-on-light-faint);
+  margin-bottom: var(--space-4);
+}
+.legal .legal-toc ol { list-style: none; padding: 0; margin: 0; }
+.legal .legal-toc li { margin-top: 0; padding-left: 0; }
+.legal .legal-toc a {
+  display: block;
+  padding-block: .4375rem;
+  font-size: .8125rem;
+  line-height: 1.4;
+  color: var(--text-on-light-muted);
+  text-decoration: none;
+  transition: color .2s var(--ease);
+}
+.legal .legal-toc a:hover { color: var(--text-on-light); text-decoration-color: var(--lime-dim); }
+.legal-toc a:focus-visible { outline-offset: 1px; }
 .legal p,
 .legal li { font-size: .9375rem; line-height: 1.75; color: var(--text-on-light-muted); }
 .legal p + p,
@@ -1055,6 +1094,16 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 
 /* ---------- 23. Responsive ----------------------------------------------- */
 @media (max-width: 1080px) {
+  .legal-wrap { grid-template-columns: 1fr; gap: var(--space-6); }
+  .legal-toc {
+    position: static;
+    max-height: 13rem;
+    border-left: 0;
+    border: 1px solid var(--line-light);
+    padding: var(--space-5);
+    background: var(--white);
+  }
+  .legal .legal-toc a { min-height: 44px; display: flex; align-items: center; }
   .vpanel,
   .hero-grid,
   .method-grid,

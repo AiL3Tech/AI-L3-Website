@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AI L3 Tech">
+  <rect width="64" height="64" fill="#07111D"/>
+  <rect x="6" y="6" width="9" height="9" fill="#A6F43C"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="square">
+    <path d="M17 26 v22 h13"/>
+  </g>
+  <path d="M38 26 h15 v10 h-9 h9 v12 h-15" fill="none" stroke="#A6F43C" stroke-width="6" stroke-linecap="square"/>
+</svg>

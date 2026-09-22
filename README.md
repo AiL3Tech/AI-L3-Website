@@ -68,6 +68,21 @@ assets/
 
 ## Conventions
 
+- **Arrow direction carries meaning.** A link that scrolls within the current
+  page uses the down arrow; a link that leaves the page, goes to another page,
+  or opens the booking widget uses the up-right arrow. Keep this consistent
+  when adding links, or the arrow stops being information.
+- **Punctuation.** Em dashes are not a rhythm device. Comma for appositives and
+  conjunctions, full stop for independent clauses, colon to introduce a list,
+  parentheses where an aside has its own commas. The whole site runs on 7.
+- **US English**, always. Watch `-our`, `-ise`, `-re`, and vocabulary.
+- **Never "firm."** Use company, companies, practice, or client.
+- **Social cards** live in `assets/img/og-*.png` at 1200x630 and are generated
+  from a brand template, not hand-made. A new page picks the closest existing
+  card or gets a new one.
+- **The legal pages carry a jump-link index** built from their `h2` ids. Adding
+  a section means adding an `id` and a matching `.legal-toc` entry.
+
 - **Booking CTA** points at the LeadConnector widget. It appears in the nav,
   the hero, every pricing card, and the closing CTA — change it in one place
   per page.
