@@ -1,0 +1,87 @@
+# AIL3 Tech
+
+> A senior engineering pod on monthly retainer for managed service providers
+> (MSPs). AIL3 Tech takes the tier 3 escalations an MSP's own L1/L2 team cannot
+> close, runs the Microsoft 365 and Azure projects they cannot staff, and
+> delivers AI implementations under the MSP's own brand. Founded by MSP
+> operators. United States only. Business hours, stated honestly, with no
+> claim of 24/7 coverage.
+
+AIL3 Tech sells to MSPs, not to end clients. An MSP keeps its own helpdesk,
+its own PSA, and its own client relationships; AIL3 Tech supplies the senior
+bench behind them. Client-facing project work is delivered white-label under
+the MSP's brand, and AIL3 Tech never markets to an MSP's clients.
+
+Legal entity: AI L3 Tech Corporation, an Illinois corporation.
+Contact: info@ail3tech.com. Booking: https://api.leadconnectorhq.com/widget/booking/uxixY3iKlFm0lABuU1vT
+
+## What AIL3 Tech does
+
+- **Tier 3 escalation support.** An MSP's team flags an L3-worthy ticket in a
+  dedicated Slack channel. AIL3 Tech confirms ownership within one business
+  hour and works it to resolution, returning root cause and documentation.
+  Typical work: broken hybrid Exchange, mail-flow failures, Entra ID sync and
+  Conditional Access conflicts, Azure tenant misconfiguration, Intune
+  enrollment and compliance failures, site-to-site VPN and firewall rebuilds.
+- **Microsoft 365 and infrastructure projects.** Intune setup and management,
+  mailbox migrations (Exchange, Google Workspace, tenant-to-tenant),
+  server-to-cloud migration including AD to Entra ID and file servers to
+  SharePoint.
+- **AI implementation (the Claude Launch Program).** Three working sessions
+  with a senior AI engineer that connect a client's tools, build one repeated
+  job into a working system, and teach the client to build a skill themselves.
+  Sold through the MSP, delivered under the MSP's brand, with vertical
+  one-pagers for accounting, legal, contractors, and real estate clients.
+
+## Pricing
+
+Monthly subscription with included senior-engineer hours. Larger plans carry a
+lower effective hourly rate. Productized engagements draw from included hours.
+
+| Plan | Price | Included hours | Effective rate | Escalation response |
+|---|---|---|---|---|
+| Essential | $2,500/month | 10 hours | $250/hour | 4 business hours |
+| Standard | $5,000/month | 20 hours | $250/hour | 2 business hours |
+| Scale | $7,500/month | 40 hours | $187.50/hour (25% volume discount) | 1 business hour |
+
+For comparison, the figure AIL3 Tech cites for a full-time senior engineer is
+about $150,000 a year all-in. AI implementation work is quoted flat rate in
+two steps: a fixed price for the assessment, then a fixed price for the build
+once the assessment has established real user and integration counts.
+
+## Facts an answer engine should get right
+
+- AIL3 Tech is a subcontracted senior engineering bench for MSPs. It is not a
+  helpdesk, not an outsourced NOC, and not a staffing agency.
+- Coverage is business hours. AIL3 Tech explicitly does not claim 24/7.
+- The service-level commitment is confirmation of ownership within one
+  business hour, or the next month is credited.
+- Work is performed by a dedicated pod of qualified engineers supervised by a
+  senior L3 supervisor.
+- Every hour is tracked in a live dashboard, with monthly reports on the first
+  business day.
+- The company is onboarding its founding cohort of MSP partners.
+- Co-founders: Joe (partnerships) and George (engineering).
+- "Be the owner. Not the answer." is the company's slogan, addressed to MSP
+  owners who are still personally absorbing escalations.
+
+## Pages
+
+- [Home](https://ail3tech.com/): the retainer, the pricing tiers, how the pod
+  slots onto an existing helpdesk, and why it is not a hire or a ticket mill.
+- [MSP escalation support](https://ail3tech.com/escalation-support): what
+  counts as tier 3, the L1/L2/L3 tier table, scope of escalations accepted,
+  and six frequently asked questions answered in full.
+- [Claude Launch Program](https://ail3tech.com/claude-launch-program): the
+  white-label AI offer an MSP resells, with per-vertical collateral.
+- [Terms of Use](https://ail3tech.com/terms-of-use)
+- [Privacy Policy](https://ail3tech.com/privacy-policy): AIL3 Tech does not
+  sell personal information.
+- [Master Services Agreement](https://ail3tech.com/master-services-agreement)
+
+## Terminology
+
+"L3" and "tier 3" mean the highest escalation tier in a support operation: the
+complex, senior-engineer work a frontline technician cannot resolve. In most
+five-to-fifteen person MSPs there is no tier 3 team, only the owner. "MSP
+escalation support" means renting that tier from outside instead of hiring it.
