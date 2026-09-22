@@ -13,10 +13,22 @@ open any `.html` file directly in a browser.
 | `terms-of-use.html` | `/terms-of-use/` |
 | `privacy-policy.html` | `/privacy-policy/` |
 | `master-services-agreement.html` | `/master-services-agreement/` |
+| `claude-launch-program.html` | new — no live equivalent |
 
 All copy, pricing, legal text, links, and the copyright line are taken from the
 live site. The legal pages preserve the live markup verbatim; only the shell and
 styling are new.
+
+**The Claude Launch Program page is MSP-facing.** It sells the AI offer an MSP
+resells to its own clients, with four vertical one-pagers (accounting, legal,
+contractors, real estate) as white-label collateral. The vertical switcher is an
+ARIA tablist: without JavaScript all four panels stay visible, so nothing is
+hidden from a reader or a crawler.
+
+Its copy comes from the four `AI_L3_Claude_*.pdf` one-pagers, with two deliberate
+departures: the page says **three working sessions** where the PDFs say twelve,
+and it calls the offer the **Claude Launch Program** where the PDFs say "Claude
+Implementation by AI L3". The PDFs need regenerating to match.
 
 ## Design system
 

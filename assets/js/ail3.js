@@ -29,6 +29,46 @@
     });
   }
 
+  /* ---- Vertical switcher: ARIA tabs, arrow-key navigable ----
+     Without JS every panel stays visible, so the content is never hidden. */
+  var tablist = document.querySelector('[data-vtabs]');
+
+  if (tablist) {
+    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function (t) {
+      return document.getElementById(t.getAttribute('aria-controls'));
+    });
+
+    var select = function (i, moveFocus) {
+      tabs.forEach(function (t, j) {
+        t.setAttribute('aria-selected', String(j === i));
+        t.tabIndex = j === i ? 0 : -1;
+        if (panels[j]) { panels[j].hidden = j !== i; }
+      });
+      if (moveFocus) { tabs[i].focus(); }
+    };
+
+    tablist.addEventListener('click', function (e) {
+      var t = e.target.closest('[role="tab"]');
+      if (t) { select(tabs.indexOf(t)); }
+    });
+
+    tablist.addEventListener('keydown', function (e) {
+      var i = tabs.indexOf(document.activeElement);
+      if (i < 0) { return; }
+      var n;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { n = (i + 1) % tabs.length; }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { n = (i - 1 + tabs.length) % tabs.length; }
+      else if (e.key === 'Home') { n = 0; }
+      else if (e.key === 'End') { n = tabs.length - 1; }
+      else { return; }
+      e.preventDefault();
+      select(n, true);
+    });
+
+    select(0);
+  }
+
   /* ---- Scroll reveal (skipped entirely under reduced motion) ---- */
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var targets = document.querySelectorAll('.reveal, .reveal-stagger');

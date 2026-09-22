@@ -490,6 +490,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
 }
+/* Fixed 3-up, so a six-card set makes two full rows instead of a ragged one */
+.card-grid--3 { grid-template-columns: repeat(3, 1fr); }
 .card {
   position: relative;
   background: var(--white);
@@ -933,7 +935,103 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .legal a:hover { color: var(--lime-dim); }
 .legal hr { border: 0; border-top: 1px solid var(--line-light); margin-block: var(--space-7); }
 
-/* ---------- 21. Motion --------------------------------------------------- */
+/* ---------- 21. Vertical switcher (Claude Launch Program) ---------------- */
+.vtabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line-dark);
+  margin-bottom: var(--space-8);
+}
+.band-light .vtabs,
+.band-white .vtabs { border-bottom-color: var(--line-light); }
+
+.vtab {
+  padding: .875rem 1.25rem;
+  min-height: 48px;
+  font-family: var(--font-body);
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--text-on-dark-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.vtab:first-child { padding-left: 0; }
+.vtab:hover { color: var(--text-on-dark); }
+.vtab[aria-selected="true"] { color: var(--lime); border-bottom-color: var(--lime); }
+
+.vpanel {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.vpanel[hidden] { display: none; }
+.vpanel + .vpanel { margin-top: var(--space-8); }
+
+.hook {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1.06;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  margin-block: var(--space-4) var(--space-4);
+}
+.hook em { font-style: normal; color: var(--blue-soft); }
+.hook-sub {
+  font-size: .9375rem;
+  color: var(--text-on-dark-muted);
+  padding-bottom: var(--space-5);
+  border-bottom: 2px solid var(--blue-soft);
+  display: inline-block;
+}
+
+.compliance-note {
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  border: 1px solid var(--line-dark);
+  border-left: 3px solid var(--blue-soft);
+  font-size: .875rem;
+  color: var(--text-on-dark-muted);
+}
+
+/* Claude prompt mock, lifted from the one-pagers */
+.claude-panel {
+  background: var(--ink-raised);
+  border: 1px solid var(--line-dark);
+  padding: var(--space-5);
+}
+.claude-head {
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  font-size: .9375rem;
+  font-weight: 700;
+  margin-bottom: var(--space-5);
+}
+.claude-head svg { width: 16px; height: 16px; flex: none; }
+
+.prompt-list li {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .8125rem 1rem;
+  border: 1px solid var(--line-dark);
+  background: rgba(255, 255, 255, .02);
+  font-size: .875rem;
+  color: var(--text-on-dark);
+}
+.prompt-list li + li { margin-top: .5rem; }
+.prompt-list li::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: none;
+  background: rgba(78, 134, 199, .35);
+  border: 1px solid var(--blue-soft);
+}
+
+/* ---------- 22. Motion --------------------------------------------------- */
 .reveal { opacity: 0; transform: translateY(18px); }
 .reveal.is-in {
   opacity: 1;
@@ -950,8 +1048,9 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .reveal-stagger.is-in > *:nth-child(3) { transition-delay: .14s; }
 .reveal-stagger.is-in > *:nth-child(4) { transition-delay: .21s; }
 
-/* ---------- 22. Responsive ----------------------------------------------- */
+/* ---------- 23. Responsive ----------------------------------------------- */
 @media (max-width: 1080px) {
+  .vpanel,
   .hero-grid,
   .method-grid,
   .sec-head,
@@ -959,6 +1058,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .sec-head { gap: var(--space-5); align-items: start; }
   .pain-grid,
   .pain-grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid--3 { grid-template-columns: repeat(2, 1fr); }
   .stat-strip { grid-template-columns: repeat(2, 1fr); }
   .stat:nth-child(2) { border-right: 0; }
   .price-grid { grid-template-columns: 1fr; }
@@ -1005,6 +1105,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .pain-grid,
   .pain-grid--3,
   .stat-strip { grid-template-columns: 1fr; }
+  .card-grid--3 { grid-template-columns: 1fr; }
   .stat { border-right: 0; border-bottom: 1px solid var(--line-dark); }
   .stat:last-child { border-bottom: 0; }
   .btn { width: 100%; }
@@ -1012,6 +1113,14 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .footer-cols { grid-template-columns: 1fr; }
   .trust-row { gap: var(--space-4); flex-direction: column; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .vtabs { flex-direction: column; align-items: stretch; }
+  .vtab {
+    padding: .875rem 0;
+    text-align: left;
+    border-bottom: 1px solid var(--line-dark);
+    margin-bottom: 0;
+  }
+  .vtab[aria-selected="true"] { border-bottom-color: var(--lime); }
 }
 
 @media (prefers-reduced-motion: reduce) {
