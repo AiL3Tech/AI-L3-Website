@@ -32,7 +32,7 @@ Implementation by AI L3". The PDFs need regenerating to match.
 
 ## Design system
 
-Colour is sampled directly from the design concept. Everything is a CSS custom
+Color is sampled directly from the design concept. Everything is a CSS custom
 property in `assets/css/ail3.css`.
 
 | Token | Value | Role |
