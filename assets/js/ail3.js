@@ -32,6 +32,28 @@
     });
   }
 
+
+  /* ---- Booking calendar: show a way through if the embed is blocked ----
+     The calendar is a third-party iframe, and blockers deny those routinely.
+     A denied request means the load event never fires, so if it has not fired
+     by the time the timer runs out, swap the empty frame for real options. */
+  var frame = document.querySelector('[data-booking]');
+  var fallback = document.querySelector('[data-booking-fallback]');
+
+  if (frame && fallback) {
+    var iframe = frame.querySelector('iframe');
+    var loaded = false;
+
+    iframe.addEventListener('load', function () { loaded = true; });
+
+    setTimeout(function () {
+      if (!loaded) {
+        frame.hidden = true;
+        fallback.hidden = false;
+      }
+    }, 6000);
+  }
+
   /* ---- Vertical switcher: ARIA tabs, arrow-key navigable ----
      Without JS every panel stays visible, so the content is never hidden. */
   var tablist = document.querySelector('[data-vtabs]');

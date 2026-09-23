@@ -1339,6 +1339,18 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .booking-frame iframe { min-height: 900px; }
 }
 
+/* shown only when the calendar embed is blocked */
+.booking-fallback {
+  border: 1px solid var(--line-light);
+  border-left: 3px solid var(--lime-text);
+  background: var(--white);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+.booking-fallback h2 { margin-bottom: var(--space-4); }
+.booking-fallback .lead { margin-bottom: var(--space-6); }
+.booking-fallback[hidden] { display: none; }
+.booking-frame[hidden] { display: none; }
+
 /* ---------- 29. Spacing utilities -------------------------------------- */
 /* These exist so no element needs a style attribute, which lets the
    Content-Security-Policy drop 'unsafe-inline' from style-src. */

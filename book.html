@@ -36,7 +36,7 @@
 <meta name="twitter:description" content="Pick a time that suits you. A focused first conversation about your escalations, your projects, or the process that eats your week.">
 <meta name="twitter:image" content="https://ail3tech.com/assets/img/og-logo.png">
 
-<link rel="stylesheet" href="assets/css/ail3.css?v=a44e4a7d2a">
+<link rel="stylesheet" href="assets/css/ail3.css?v=e2c32a606b">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -195,14 +195,29 @@
 <!-- ============================= CALENDAR ============================= -->
 <section class="section band-white" id="calendar">
   <div class="wrap">
-    <div class="booking-frame">
+    <div class="booking-frame" data-booking>
       <iframe
         src="https://api.leadconnectorhq.com/widget/booking/MAeYJcFGgrso0ygmeBTB"
         id="MAeYJcFGgrso0ygmeBTB_1790188320788"
         title="Booking calendar for AI L3 Tech"
         allow="payment"
-        scrolling="no"
-        loading="lazy"></iframe>
+        scrolling="no"></iframe>
+    </div>
+
+    <!-- Shown when the calendar cannot load. Ad blockers and corporate DNS
+         filters routinely block booking widgets, and without this the visitor
+         just gets an empty box. -->
+    <div class="booking-fallback" data-booking-fallback hidden>
+      <h2 class="display-3">The calendar didn&rsquo;t load.</h2>
+      <p class="lead">That is almost always an ad blocker or a company network blocking booking widgets, not a problem with your machine. Two ways round it:</p>
+      <div class="btn-row">
+        <a class="btn btn--lime" href="https://api.leadconnectorhq.com/widget/booking/MAeYJcFGgrso0ygmeBTB" target="_blank" rel="noopener">
+          Open the calendar directly <span class="arw" aria-hidden="true">&#8599;</span>
+        </a>
+        <a class="btn btn--outline" href="mailto:info@ail3tech.com?subject=Booking%20a%20call">
+          Email us instead <span class="arw" aria-hidden="true">&#8599;</span>
+        </a>
+      </div>
     </div>
 
     <p class="price-note">If nothing here works, email <a href="mailto:info@ail3tech.com">info@ail3tech.com</a> and we&rsquo;ll find a time.</p>
@@ -305,7 +320,7 @@
   </div>
 </footer>
 
-<script src="assets/js/ail3.js?v=b2109589c3"></script>
+<script src="assets/js/ail3.js?v=f1070c9408"></script>
 <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 </body>
 </html>
