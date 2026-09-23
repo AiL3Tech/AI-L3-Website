@@ -11,12 +11,14 @@
       var open = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!open));
       links.classList.toggle('is-open', !open);
+      document.body.classList.toggle('nav-open', !open);
     });
 
     links.addEventListener('click', function (e) {
       if (e.target.closest('a')) {
         toggle.setAttribute('aria-expanded', 'false');
         links.classList.remove('is-open');
+        document.body.classList.remove('nav-open');
       }
     });
 
@@ -24,6 +26,7 @@
       if (e.key === 'Escape' && links.classList.contains('is-open')) {
         toggle.setAttribute('aria-expanded', 'false');
         links.classList.remove('is-open');
+        document.body.classList.remove('nav-open');
         toggle.focus();
       }
     });

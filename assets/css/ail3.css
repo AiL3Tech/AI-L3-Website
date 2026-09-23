@@ -1151,6 +1151,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
     transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
   }
   .nav-links.is-open { transform: none; opacity: 1; visibility: visible; }
+  body.nav-open { overflow: hidden; }
   .nav-links a:not(.btn) {
     padding-block: var(--space-4);
     border-bottom: 1px solid var(--line-dark);
@@ -1203,7 +1204,38 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 }
 
 @media print {
-  .nav, .cta-final, .footer-cols, .btn { display: none; }
+  .nav,
+  .cta-final,
+  .footer-cols,
+  .legal-toc,
+  .skip-link,
+  .btn { display: none; }
   body { background: #fff; color: #000; }
-  .legal { background: #fff; }
+  .legal { background: #fff; padding-block: 0; }
+  .legal-wrap { display: block; max-width: none; }
+  /* printed contracts need ink-black body text, not the on-screen grey */
+  .legal p,
+  .legal li,
+  .legal h2,
+  .legal h3,
+  .legal strong { color: #000; }
+  .legal a { color: #000; text-decoration: underline; }
+  .legal h2 { break-after: avoid; page-break-after: avoid; }
+  .legal p, .legal li { orphans: 3; widows: 3; }
+}
+
+/* ---------- 25. Forced colors (Windows High Contrast) ------------------- */
+/* These markers are drawn with background only, so the forced palette wipes
+   them out. Give them a border in the system colour instead. */
+@media (forced-colors: active) {
+  .eyebrow::before,
+  .pulse::before,
+  .prompt-list li::before {
+    forced-color-adjust: none;
+    border: 1px solid CanvasText;
+    background: Highlight;
+  }
+  .stat--lime,
+  .tag-flag { border: 1px solid CanvasText; }
+  .flow-step.is-active { border-color: Highlight; }
 }
