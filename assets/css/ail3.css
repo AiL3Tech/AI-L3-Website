@@ -1318,7 +1318,28 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .band-dark .case-outcome b,
 .band-deep .case-outcome b { color: var(--lime); }
 
-/* ---------- 28. Spacing utilities -------------------------------------- */
+/* ---------- 28. Booking embed ------------------------------------------ */
+/* The calendar is a third-party iframe. form_embed.js sets its height once the
+   widget reports its size, so the min-height is only there to stop the page
+   collapsing and shifting while that happens. */
+.booking-frame {
+  border: 1px solid var(--line-light);
+  background: var(--white);
+  padding: var(--space-4);
+}
+.booking-frame iframe {
+  display: block;
+  width: 100%;
+  min-height: 720px;
+  border: 0;
+  overflow: hidden;
+}
+@media (max-width: 860px) {
+  .booking-frame { padding: var(--space-2); }
+  .booking-frame iframe { min-height: 900px; }
+}
+
+/* ---------- 29. Spacing utilities -------------------------------------- */
 /* These exist so no element needs a style attribute, which lets the
    Content-Security-Policy drop 'unsafe-inline' from style-src. */
 .mt-4 { margin-top: var(--space-4); }

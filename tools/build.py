@@ -36,7 +36,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = "https://ail3tech.com"
-BOOK = "https://api.leadconnectorhq.com/widget/booking/uxixY3iKlFm0lABuU1vT"
+BOOK = f"{BASE}/book"
 ASSETS = ("assets/css/ail3.css", "assets/js/ail3.js")
 
 # page -> (clean path, social card, breadcrumb label, kind)
@@ -49,6 +49,7 @@ PAGES = {
     "privacy-policy":            ("/privacy-policy",            "og-logo",       "Privacy Policy",           "legal"),
     "terms-of-use":              ("/terms-of-use",              "og-logo",       "Terms of Use",             "legal"),
     "master-services-agreement": ("/master-services-agreement", "og-logo",       "Master Services Agreement", "legal"),
+    "book":                      ("/book",                      "og-logo",       "Book a call",              "book"),
 }
 
 ORG = {

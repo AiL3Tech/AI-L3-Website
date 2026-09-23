@@ -16,7 +16,7 @@ providers, /ai for businesses buying AI for themselves. Pricing is published on
 the MSP side only.
 
 Legal entity: AI L3 Tech Corporation, an Illinois corporation.
-Contact: info@ail3tech.com. Booking: https://api.leadconnectorhq.com/widget/booking/uxixY3iKlFm0lABuU1vT
+Contact: info@ail3tech.com. Booking: https://ail3tech.com/book
 
 ## For MSPs
 
@@ -137,6 +137,7 @@ action, an output, and a named person who reads it.
 - [Privacy Policy](https://ail3tech.com/privacy-policy): AI L3 Tech does not
   sell personal information.
 - [Master Services Agreement](https://ail3tech.com/master-services-agreement)
+- [Book a call](https://ail3tech.com/book): the booking calendar.
 
 ## Terminology
 
