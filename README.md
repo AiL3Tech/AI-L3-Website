@@ -66,6 +66,24 @@ assets/
   img/              logo, white and ink variants
 ```
 
+## Editing assets
+
+`assets/css/ail3.css` and `assets/js/ail3.js` are served with a one-year
+immutable cache, which is only safe because their URLs carry a content hash.
+**After changing either file, run:**
+
+```bash
+uv run python tools/stamp-assets.py
+```
+
+That recomputes the hash and rewrites `?v=` on every page. Skip it and a
+returning visitor keeps the old stylesheet against new markup, which renders as
+unstyled blocks. Images under `assets/img/` are cached for a week with
+revalidation and carry no hash, so they update on their own.
+
+If you regenerate page heads with the SEO script, run the stamper afterwards:
+the SEO script rewrites the stylesheet link and drops the stamp.
+
 ## Conventions
 
 - **Arrow direction carries meaning.** A link that scrolls within the current

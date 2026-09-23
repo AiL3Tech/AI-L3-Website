@@ -33,7 +33,16 @@
       ]
     },
     {
-      "source": "/assets/(.*)",
+      "source": "/llms.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(css|js)/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -42,11 +51,20 @@
       ]
     },
     {
-      "source": "/llms.txt",
+      "source": "/assets/img/(.*)",
       "headers": [
         {
-          "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/(favicon.ico|site.webmanifest|robots.txt|llms.txt|sitemap.xml)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
         }
       ]
     }
