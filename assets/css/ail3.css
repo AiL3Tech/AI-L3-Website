@@ -52,6 +52,11 @@
   --gutter: 1.5rem;
   --nav-h: 80px;
 
+  /* Label type. Small caps labels read at 11px on a desktop pointer, but on a
+     phone that is below the 12px floor, so both step up at the breakpoint. */
+  --fs-label:    .6875rem;   /* 11px */
+  --fs-label-sm: .625rem;    /* 10px */
+
   --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
@@ -68,6 +73,9 @@ html {
 
 body {
   margin: 0;
+  /* A single long token, an email address or a URL in the legal pages, must
+     not be able to push the page wider than the phone it is read on. */
+  overflow-wrap: break-word;
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
@@ -141,6 +149,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- 4. Type primitives ------------------------------------------ */
 .display-1 { font-size: clamp(2.6rem, 6.2vw, 4.6rem); }
 .display-2 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
+/* The third step. Used by the booking fallback heading, which only appears when
+   the calendar is blocked, so it never showed up in a normal page review and
+   was rendering at the browser's default h2 size. */
+.display-3 { font-size: clamp(1.6rem, 3.2vw, 2.4rem); }
 
 .lead {
   font-size: clamp(1rem, 1.25vw, 1.125rem);
@@ -156,7 +168,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* small caption label above a block */
 .micro {
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
@@ -171,7 +183,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   align-items: center;
   gap: .625rem;
   font-family: var(--font-body);
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -189,7 +201,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Numbered section tag: "03 / MEASURED IMPACT" */
 .section-tag {
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -232,6 +244,30 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn--dark { background: var(--ink); color: var(--white); }
 .btn--dark:hover { background: var(--ink-raised); }
 
+/* A finger gets no hover state, so without this a tap looks like nothing
+   happened until the next page paints. The press is the only feedback a touch
+   visitor ever sees, and it reads on a mouse too. */
+.btn:active,
+.btn--door:active { transform: translateY(1px); }
+.btn:active .arw { transform: none; }
+.btn--lime:active { background: #93E024; }
+.btn--outline:active { border-color: var(--lime); color: var(--lime); }
+.band-light .btn--outline:active,
+.band-white .btn--outline:active { border-color: var(--ink); background: var(--ink); color: var(--white); }
+.btn--dark:active { background: var(--ink-raised); }
+.link-arrow:active { color: var(--lime-dim); }
+.nav-links a:not(.btn):active { color: var(--white); }
+.footer-cols a:active,
+.footer-bottom a:active { color: var(--lime); }
+.legal a:active { color: var(--lime-dim); }
+.vtab:active { color: var(--text-on-dark); }
+.card:active { transform: translateY(-1px); }   /* settles out of the hover lift */
+.pain:active { background: #0C1727; }          /* matches its hover, dark band only */
+
+/* The platform's grey flash fights the brand press state above. The press is
+   still visible, so nothing is lost by turning the flash off. */
+a, button, summary, [role="tab"] { -webkit-tap-highlight-color: transparent; }
+
 .btn--sm { min-height: 44px; padding: .625rem 1.125rem; font-size: .875rem; gap: var(--space-4); }
 .btn--block { width: 100%; }
 
@@ -273,10 +309,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nav-logo img { height: 34px; width: auto; }
 .nav-links { display: flex; align-items: center; gap: var(--space-6); }
 .nav-links a:not(.btn) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;          /* tablets get this nav and tap it with a finger */
   font-size: .875rem;
   font-weight: 500;
   color: var(--text-on-dark-muted);
-  padding: .5rem 0;
   transition: color .2s var(--ease);
 }
 .nav-links a:not(.btn):hover { color: var(--white); }
@@ -342,7 +380,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: flex;
   align-items: center;
   gap: .5rem;
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
@@ -360,11 +398,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-4);
+  /* Two tracked labels will not both fit on a 320px phone. Wrapping puts the
+     status on its own line instead of squeezing it into three. */
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
   padding-bottom: var(--space-4);
   border-bottom: 1px solid var(--line-dark);
   margin-bottom: var(--space-5);
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -394,7 +435,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .flow-step { border: 1px solid var(--line-dark); padding: var(--space-4); }
 .flow-step.is-active { border-color: var(--lime); }
-.flow-step .n { font-size: .6875rem; color: var(--text-on-dark-faint); }
+.flow-step .n { font-size: var(--fs-label); color: var(--text-on-dark-faint); }
 .flow-step .t { font-size: .875rem; font-weight: 600; margin-top: .375rem; }
 .flow-step.is-active .t { color: var(--lime); }
 .flow-step .d { font-size: .75rem; color: var(--text-on-dark-faint); margin-top: .25rem; line-height: 1.45; }
@@ -409,7 +450,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: var(--space-5);
 }
 .delta .k {
-  font-size: .625rem;
+  font-size: var(--fs-label-sm);
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--text-on-dark-faint);
@@ -425,7 +466,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .delta .badge {
   background: rgba(166, 244, 60, .14);
   color: var(--lime);
-  font-size: .625rem;
+  font-size: var(--fs-label-sm);
   font-weight: 700;
   letter-spacing: .1em;
   padding: .5rem .75rem;
@@ -528,7 +569,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--text-on-light-faint);
 }
 .card .card-kicker {
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -611,7 +652,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .band-dark .method .n,
 .band-deep .method .n { color: var(--text-on-dark-faint); }
 .method .kicker {
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -654,7 +695,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   z-index: 2;
 }
 .price-name {
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -707,7 +748,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   right: 0;
   background: var(--lime);
   color: var(--ink);
-  font-size: .625rem;
+  font-size: var(--fs-label-sm);
   font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
@@ -737,7 +778,28 @@ ul { margin: 0; padding: 0; list-style: none; }
 .band-deep .row .d { color: var(--text-on-dark-muted); }
 
 /* ---------- 15. Tier table ----------------------------------------------- */
-.table-wrap { overflow-x: auto; border: 1px solid var(--line-light); background: var(--white); }
+/* The tier table cannot usefully reflow below about 720px, so it scrolls.
+   A scrollable region needs to be focusable, or a keyboard user cannot reach
+   the columns at all. The right edge fades to signal there is more to see. */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line-light);
+  background: var(--white);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.table-wrap:focus-visible { outline: 3px solid var(--blue-on-light); outline-offset: 3px; }
+@media (max-width: 800px) {
+  .table-wrap {
+    background:
+      linear-gradient(to right, var(--white) 30%, rgba(255, 255, 255, 0)) left / 3rem 100% no-repeat,
+      linear-gradient(to left, var(--white) 30%, rgba(255, 255, 255, 0)) right / 3rem 100% no-repeat,
+      radial-gradient(farthest-side at 0 50%, rgba(7, 17, 29, .14), transparent) left / 1rem 100% no-repeat,
+      radial-gradient(farthest-side at 100% 50%, rgba(7, 17, 29, .14), transparent) right / 1rem 100% no-repeat,
+      var(--white);
+    background-attachment: local, local, scroll, scroll, local;
+  }
+}
 table.tiers { width: 100%; border-collapse: collapse; min-width: 720px; font-size: .875rem; }
 table.tiers th,
 table.tiers td {
@@ -747,7 +809,7 @@ table.tiers td {
   vertical-align: top;
 }
 table.tiers thead th {
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--text-on-light-faint);
@@ -832,7 +894,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .cta-final .btn { margin-inline: auto; }
 .cta-note {
   margin-top: var(--space-6);
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--text-on-dark-faint);
@@ -853,7 +915,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
 .footer-cols h2 {
   font-family: var(--font-body);
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -897,17 +959,25 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   align-items: start;
 }
 .legal-body { max-width: 78ch; }
+/* The cap has to sit on the element whose font-size it is measured in, or a
+   15px paragraph inside a 16px container gets a wider line than intended. */
+.legal-body p,
+.legal-body li { max-width: 66ch; }
+.method p,
+.case-situation { max-width: 66ch; }
 
 .legal-toc {
   position: sticky;
   top: calc(var(--nav-h) + 1.5rem);
-  max-height: calc(100vh - var(--nav-h) - 4rem);
+  /* dvh, not vh: a large tablet in landscape has a collapsing browser bar, and
+     vh measures the tallest state, which would run the list off the screen. */
+  max-height: calc(100dvh - var(--nav-h) - 4rem);
   overflow-y: auto;
   border-left: 2px solid var(--line-light);
   padding-left: var(--space-5);
 }
 .legal-toc-title {
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -1107,7 +1177,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   display: inline-flex;
   align-items: center;
   gap: .625rem;
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -1174,7 +1244,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   display: inline-flex;
   align-items: center;
   gap: .625rem;
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -1245,7 +1315,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   align-self: flex-start;
   display: inline-block;
   white-space: nowrap;
-  font-size: .625rem;
+  font-size: var(--fs-label-sm);
   font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
@@ -1284,7 +1354,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .band-dark .case-scope > div,
 .band-deep .case-scope > div { border-bottom-color: var(--line-dark); }
 .case-scope dt {
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -1308,7 +1378,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .band-deep .case-outcome { color: var(--text-on-dark-muted); }
 .case-outcome b {
   display: block;
-  font-size: .6875rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
@@ -1335,7 +1405,10 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   overflow: hidden;
 }
 @media (max-width: 860px) {
-  .booking-frame iframe { min-height: 900px; }
+  /* The embed reports its own height once it loads, around 815px on a phone
+     and 848px on a tablet. The floor only has to hold the space until then, so
+     it sits just under those rather than padding them out with empty white. */
+  .booking-frame iframe { min-height: 820px; }
 }
 
 /* shown only when the calendar embed is blocked */
@@ -1362,6 +1435,16 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .btn-row-note { flex: 1 1 320px; margin: 0; }
 
 /* ---------- 24. Responsive ----------------------------------------------- */
+/* Small caps labels sit at 11px against a desktop pointer. On a tablet held at
+   arm's length that is under the 12px floor, and a 1024px tablet is a touch
+   device too, so the floor keys off the input as well as the width. */
+@media (max-width: 1080px), (hover: none) {
+  :root {
+    --fs-label: .75rem;
+    --fs-label-sm: .75rem;
+  }
+}
+
 @media (max-width: 1080px) {
   .doors-split { grid-template-columns: 1fr; }
   .door-panel { padding-inline: var(--gutter); }
@@ -1401,6 +1484,11 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .nav-links {
     position: fixed;
     inset: var(--nav-h) 0 auto 0;
+    /* A phone held sideways leaves roughly 320px below the bar. Without a cap
+       the last link and the call button fall off the bottom unreachably. */
+    max-height: calc(100dvh - var(--nav-h));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -1428,6 +1516,17 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 }
 
 @media (max-width: 560px) {
+  /* Side by side, the before and after pair needs 276px inside a 222px panel,
+     which widened the whole hero grid. Below 560 the comparison reads top to
+     bottom instead and the arrow turns to follow it. */
+  .delta {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-3);
+    justify-items: start;
+  }
+  .delta .arrow { transform: rotate(90deg); }
+  .delta .badge { white-space: normal; }
+
   .pain-grid,
   .pain-grid--3,
   .stat-strip { grid-template-columns: 1fr; }

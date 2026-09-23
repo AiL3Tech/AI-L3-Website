@@ -7,6 +7,25 @@
   var links = document.getElementById('nav-links');
 
   if (toggle && links) {
+    function closeNav(refocus) {
+      toggle.setAttribute('aria-expanded', 'false');
+      links.classList.remove('is-open');
+      document.body.classList.remove('nav-open');
+      if (refocus) { toggle.focus(); }
+    }
+
+    /* Rotating a tablet from portrait to landscape crosses the breakpoint and
+       hides the toggle button. Without this the drawer state survives the
+       switch and body.nav-open keeps the page locked with nothing left to
+       tap, so the visitor is stuck on a page that will not scroll. */
+    var wide = window.matchMedia('(min-width: 861px)');
+    var onCross = function (e) { if (e.matches) { closeNav(false); } };
+    if (wide.addEventListener) {
+      wide.addEventListener('change', onCross);
+    } else if (wide.addListener) {
+      wide.addListener(onCross);               /* older Safari */
+    }
+
     toggle.addEventListener('click', function () {
       var open = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!open));
@@ -15,20 +34,11 @@
     });
 
     links.addEventListener('click', function (e) {
-      if (e.target.closest('a')) {
-        toggle.setAttribute('aria-expanded', 'false');
-        links.classList.remove('is-open');
-        document.body.classList.remove('nav-open');
-      }
+      if (e.target.closest('a')) { closeNav(false); }
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && links.classList.contains('is-open')) {
-        toggle.setAttribute('aria-expanded', 'false');
-        links.classList.remove('is-open');
-        document.body.classList.remove('nav-open');
-        toggle.focus();
-      }
+      if (e.key === 'Escape' && links.classList.contains('is-open')) { closeNav(true); }
     });
   }
 
