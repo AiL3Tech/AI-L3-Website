@@ -15,6 +15,7 @@
   --white:          #FFFFFF;
   --lime:           #A6F43C;
   --lime-dim:       #7FC122;
+  --lime-text:      #527A13;   /* lime family, readable as text on light */
   --blue:           #1E3A5F;
   --blue-soft:      #4E86C7;
   --blue-on-light:  #3D6FA8;
@@ -1168,7 +1169,111 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 /* stretched link: the whole card is clickable, the card still has one link */
 .door .btn::after { content: ""; position: absolute; inset: 0; }
 
-/* ---------- 27. Spacing utilities -------------------------------------- */
+
+/* ---------- 27. Case study / example build cards ------------------------ */
+/* One card format for both, per the spec's five-part scope rule. Real work
+   closes on "Result"; invented scenarios are badged "Example build" and close
+   on "Designed to", never on a fabricated number. */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--line-light);
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.band-dark .case-card,
+.band-deep .case-card {
+  background: var(--ink-raised);
+  border-color: var(--line-dark);
+}
+
+/* short, nowrap pill: a compact label must not wrap to a second line */
+.case-badge {
+  align-self: flex-start;
+  display: inline-block;
+  white-space: nowrap;
+  font-size: .625rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: .375rem .625rem;
+  border: 1px solid var(--lime-text);
+  color: var(--text-on-light);
+}
+.case-badge--real { background: var(--lime); border-color: var(--lime); color: var(--ink); }
+.band-dark .case-badge,
+.band-deep .case-badge { color: var(--lime); border-color: rgba(166, 244, 60, .5); }
+
+.case-caption {
+  font-size: .75rem;
+  color: var(--text-on-light-faint);
+  margin-top: calc(var(--space-3) * -1);
+}
+.band-dark .case-caption,
+.band-deep .case-caption { color: var(--text-on-dark-faint); }
+
+.case-card h3 { font-size: clamp(1.15rem, 1.7vw, 1.4rem); letter-spacing: -.02em; }
+.case-situation { font-size: .9375rem; line-height: 1.65; color: var(--text-on-light-muted); }
+.band-dark .case-situation,
+.band-deep .case-situation { color: var(--text-on-dark-muted); }
+
+/* the five-part scope, as a definition list so label and value stay paired */
+.case-scope { margin: 0; border-top: 1px solid var(--line-light); }
+.band-dark .case-scope,
+.band-deep .case-scope { border-top-color: var(--line-dark); }
+.case-scope > div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--line-light);
+}
+.band-dark .case-scope > div,
+.band-deep .case-scope > div { border-bottom-color: var(--line-dark); }
+.case-scope dt {
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-on-light-faint);
+  padding-top: .1rem;
+}
+.band-dark .case-scope dt,
+.band-deep .case-scope dt { color: var(--text-on-dark-faint); }
+.case-scope dd { margin: 0; font-size: .875rem; line-height: 1.55; color: var(--text-on-light); }
+.band-dark .case-scope dd,
+.band-deep .case-scope dd { color: var(--text-on-dark); }
+
+.case-outcome {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  font-size: .9375rem;
+  line-height: 1.6;
+  color: var(--text-on-light-muted);
+}
+.band-dark .case-outcome,
+.band-deep .case-outcome { color: var(--text-on-dark-muted); }
+.case-outcome b {
+  display: block;
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--lime-text);
+  margin-bottom: .375rem;
+}
+.band-dark .case-outcome b,
+.band-deep .case-outcome b { color: var(--lime); }
+
+/* ---------- 28. Spacing utilities -------------------------------------- */
 /* These exist so no element needs a style attribute, which lets the
    Content-Security-Policy drop 'unsafe-inline' from style-src. */
 .mt-4 { margin-top: var(--space-4); }
@@ -1182,6 +1287,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 /* ---------- 24. Responsive ----------------------------------------------- */
 @media (max-width: 1080px) {
   .door-grid { grid-template-columns: 1fr; }
+  .case-grid { grid-template-columns: 1fr; }
   .legal-wrap { grid-template-columns: 1fr; gap: var(--space-6); }
   .legal-toc {
     position: static;
@@ -1255,6 +1361,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .btn-row { flex-direction: column; align-items: stretch; }
   .footer-cols { grid-template-columns: 1fr; }
   .trust-row { gap: var(--space-4); flex-direction: column; }
+  .case-scope > div { grid-template-columns: 1fr; gap: var(--space-2); }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .vtabs { flex-direction: column; align-items: stretch; }
   .vtab {
