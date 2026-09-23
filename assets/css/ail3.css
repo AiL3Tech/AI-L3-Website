@@ -1323,9 +1323,9 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
    widget reports its size, so the min-height is only there to stop the page
    collapsing and shifting while that happens. */
 .booking-frame {
-  border: 1px solid var(--line-light);
-  background: var(--white);
-  padding: var(--space-4);
+  /* no border or padding: the widget brings its own card, and a second frame
+     around it just reads as a box inside a box */
+  background: transparent;
 }
 .booking-frame iframe {
   display: block;
@@ -1335,7 +1335,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   overflow: hidden;
 }
 @media (max-width: 860px) {
-  .booking-frame { padding: var(--space-2); }
   .booking-frame iframe { min-height: 900px; }
 }
 
