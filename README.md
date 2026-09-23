@@ -1,8 +1,7 @@
-# AI L3 Tech — Website
+# AI L3 Tech, Website
 
 Static rebuild of [ail3tech.com](https://ail3tech.com), built to the AI L3 Tech
-full-page design concept. No build step, no framework, no CDN dependency —
-open any `.html` file directly in a browser.
+full-page design concept. No build step, no framework, no CDN dependency, open any `.html` file directly in a browser.
 
 ## Pages
 
@@ -13,7 +12,7 @@ open any `.html` file directly in a browser.
 | `terms-of-use.html` | `/terms-of-use/` |
 | `privacy-policy.html` | `/privacy-policy/` |
 | `master-services-agreement.html` | `/master-services-agreement/` |
-| `claude-launch-program.html` | new — no live equivalent |
+| `claude-launch-program.html` | new, no live equivalent |
 
 All copy, pricing, legal text, links, and the copyright line are taken from the
 live site. The legal pages preserve the live markup verbatim; only the shell and
@@ -118,7 +117,7 @@ which is only safe because their URLs carry the content hash. Images under
   a section means adding an `id` and a matching `.legal-toc` entry.
 
 - **Booking CTA** points at the LeadConnector widget. It appears in the nav,
-  the hero, every pricing card, and the closing CTA — change it in one place
+  the hero, every pricing card, and the closing CTA, change it in one place
   per page.
 - **Contact** is `info@ail3tech.com`.
 - **Adding a section:** copy an existing `<section class="section band-*">`,

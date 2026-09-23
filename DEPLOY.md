@@ -33,7 +33,7 @@ deploys down.
    authorization.
 3. Import `AiL3Tech/AI-L3-Website`. If the repository does not appear in the
    list, the Vercel GitHub App has not been granted access to the **AiL3Tech
-   organization** — click *Adjust GitHub App Permissions* and add the org.
+   organization**, click *Adjust GitHub App Permissions* and add the org.
    This is the usual reason an import looks like it silently does nothing.
 4. Confirm the settings in the table above and click **Deploy**.
 
