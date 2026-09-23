@@ -66,23 +66,39 @@ assets/
   img/              logo, white and ink variants
 ```
 
-## Editing assets
+## Rebuilding
 
-`assets/css/ail3.css` and `assets/js/ail3.js` are served with a one-year
-immutable cache, which is only safe because their URLs carry a content hash.
-**After changing either file, run:**
+After editing page copy, or anything under `assets/`, run:
 
 ```bash
-uv run python tools/stamp-assets.py
+uv run python tools/build.py
 ```
 
-That recomputes the hash and rewrites `?v=` on every page. Skip it and a
-returning visitor keeps the old stylesheet against new markup, which renders as
-unstyled blocks. Images under `assets/img/` are cached for a week with
-revalidation and carry no hash, so they update on their own.
+It regenerates every page's metadata, stamps the assets, and then checks its
+own work, exiting non-zero if anything is wrong.
 
-If you regenerate page heads with the SEO script, run the stamper afterwards:
-the SEO script rewrites the stylesheet link and drops the stamp.
+The three steps have to happen in that order. Generating metadata rewrites the
+stylesheet link, which drops the version stamp, so stamping has to come after.
+They used to be two scripts and that ordering was a trap: running them the
+wrong way round once left every page with two canonicals, two Open Graph
+titles and two stylesheet links. They are one script now so the order cannot
+be got wrong.
+
+What the script guarantees on every run:
+
+- each generated tag appears exactly once per page
+- the `?v=` stamps match the real file hashes
+- the JSON-LD parses
+- every FAQ question and example-build name in the schema is visible text on
+  the page, so the markup can never claim something a reader cannot see
+
+Only four tags in each `<head>` are authored by hand: charset, viewport,
+`<title>` and the meta description. Everything else is generated, so edit
+those four in the page and let the script produce the rest.
+
+`assets/css/ail3.css` and `assets/js/ail3.js` are served immutable for a year,
+which is only safe because their URLs carry the content hash. Images under
+`assets/img/` are cached for a week with revalidation and carry no hash.
 
 ## Conventions
 
