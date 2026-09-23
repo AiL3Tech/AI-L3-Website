@@ -1128,7 +1128,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .door-panel {
   --door-accent: var(--lime);
   position: relative;
-  /* no horizontal padding: .door-inner owns the horizontal alignment */
+  --door-gap: clamp(1.5rem, 3vw, 3.5rem);   /* breathing room at the seam */
   padding-block: clamp(2.25rem, 4.5vw, 4rem) clamp(2.5rem, 5vw, 4.5rem);
   display: flex;
   flex-direction: column;
@@ -1138,15 +1138,23 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 }
 .door-panel--msp { background: var(--ink); }
 .door-panel--biz { background: var(--ink-raised); --door-accent: var(--blue-soft); }
-/* The split is full-bleed, but each half aligns its content to the page
-   gutter. Done with percentages of the container, not 100vw: vw includes the
-   scrollbar, which would drift the copy and can force a horizontal scrollbar. */
-.door-panel--msp { align-items: flex-end; }
-.door-panel--biz { align-items: flex-start; }
+/* The split is full-bleed, but each half aligns its outer edge to the page
+   gutter and holds --door-gap back from the seam. Percentage padding resolves
+   against the panel's own width, so this never depends on 100vw, which would
+   include the scrollbar. */
+.door-panel--msp {
+  padding-left: max(var(--gutter), calc(100% - var(--wrap) / 2 + var(--gutter)));
+  padding-right: var(--door-gap);
+}
+.door-panel--biz {
+  padding-left: var(--door-gap);
+  padding-right: max(var(--gutter), calc(100% - var(--wrap) / 2 + var(--gutter)));
+}
 .door-inner {
-  /* half the page container minus one gutter, so the outer edge of each half
-     lands exactly on the page gutter, with no dependence on 100vw */
-  width: min(calc(100% - var(--gutter)), calc(var(--wrap) / 2 - var(--gutter)));
+  width: 100%;
+  /* fill the panel so the button's margin-top:auto has space to push against
+     and both buttons land on the same baseline whatever the copy length */
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -1321,7 +1329,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 /* ---------- 24. Responsive ----------------------------------------------- */
 @media (max-width: 1080px) {
   .doors-split { grid-template-columns: 1fr; }
-  .door-panel { align-items: stretch; padding-inline: var(--gutter); }
+  .door-panel { padding-inline: var(--gutter); }
   .door-panel--biz { box-shadow: none; border-top-color: var(--line-dark); }
   .door-inner { width: 100%; }
   .case-grid { grid-template-columns: 1fr; }
