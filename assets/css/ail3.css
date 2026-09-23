@@ -871,7 +871,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .footer-logo { display: inline-flex; align-items: center; min-height: 48px; }
 .footer-logo img { height: 42px; width: auto; }
 .footer-tag { font-size: .8125rem; color: var(--text-on-dark-faint); margin-top: var(--space-5); max-width: 36ch; line-height: 1.6; }
-.footer-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+.footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
 .footer-cols h2 {
   font-family: var(--font-body);
   font-size: .6875rem;
@@ -1093,7 +1093,43 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .reveal-stagger.is-in > *:nth-child(4) { transition-delay: .21s; }
 
 
-/* ---------- 23. Spacing utilities -------------------------------------- */
+
+/* ---------- 26. Two-door homepage -------------------------------------- */
+/* A centred hero for the splitter page, and the pair of audience doors. */
+.hero-solo { max-width: 60ch; }
+.hero-solo h1 { margin-block: var(--space-5); }
+.hero-solo .lead { margin-bottom: var(--space-7); }
+
+.door-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line-dark);
+  border: 1px solid var(--line-dark);
+  margin-top: var(--space-7);
+}
+.door {
+  background: var(--ink-deep);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: background-color .25s var(--ease);
+}
+.door:hover { background: #0C1727; }
+.door h2 { margin-top: var(--space-2); }
+.door .lead { color: var(--text-on-dark-muted); }
+.door .plus-list li { border-top-color: var(--line-dark); }
+.door .plus-list li::before { color: var(--lime); }
+.door .card-foot {
+  margin-top: auto;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line-dark);
+}
+.door .link-arrow { color: var(--lime); }
+.door .link-arrow:hover { color: #B8F759; }
+
+/* ---------- 27. Spacing utilities -------------------------------------- */
 /* These exist so no element needs a style attribute, which lets the
    Content-Security-Policy drop 'unsafe-inline' from style-src. */
 .mt-4 { margin-top: var(--space-4); }
@@ -1116,6 +1152,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
     background: var(--white);
   }
   .legal .legal-toc a { min-height: 44px; display: flex; align-items: center; }
+  .door-grid,
   .vpanel,
   .hero-grid,
   .method-grid,
