@@ -1077,21 +1077,18 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 }
 
 /* ---------- 22. Motion --------------------------------------------------- */
-.reveal { opacity: 0; transform: translateY(18px); }
-.reveal.is-in {
-  opacity: 1;
-  transform: none;
-  transition: opacity .6s var(--ease), transform .6s var(--ease);
+/* Entrance motion only. Nothing is hidden by default, so if the script never
+   runs the content is still there. Hiding first and revealing with JS means a
+   blocked or failed script takes the section with it. */
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
 }
-.reveal-stagger > * { opacity: 0; transform: translateY(14px); }
-.reveal-stagger.is-in > * {
-  opacity: 1;
-  transform: none;
-  transition: opacity .5s var(--ease), transform .5s var(--ease);
-}
-.reveal-stagger.is-in > *:nth-child(2) { transition-delay: .07s; }
-.reveal-stagger.is-in > *:nth-child(3) { transition-delay: .14s; }
-.reveal-stagger.is-in > *:nth-child(4) { transition-delay: .21s; }
+.reveal.is-in { animation: reveal-in .6s var(--ease) both; }
+.reveal-stagger.is-in > * { animation: reveal-in .5s var(--ease) both; }
+.reveal-stagger.is-in > *:nth-child(2) { animation-delay: .07s; }
+.reveal-stagger.is-in > *:nth-child(3) { animation-delay: .14s; }
+.reveal-stagger.is-in > *:nth-child(4) { animation-delay: .21s; }
 
 
 
@@ -1131,7 +1128,8 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .door-panel {
   --door-accent: var(--lime);
   position: relative;
-  padding: clamp(2.25rem, 4.5vw, 4rem) clamp(1.5rem, 3.5vw, 3.5rem) clamp(2.5rem, 5vw, 4.5rem);
+  /* no horizontal padding: .door-inner owns the horizontal alignment */
+  padding-block: clamp(2.25rem, 4.5vw, 4rem) clamp(2.5rem, 5vw, 4.5rem);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -1140,10 +1138,22 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 }
 .door-panel--msp { background: var(--ink); }
 .door-panel--biz { background: var(--ink-raised); --door-accent: var(--blue-soft); }
-/* the split is full-bleed, but its outer edges line up with the page gutter
-   so panel copy sits on the same axis as the heading above it */
-.door-panel--msp { padding-left: max(1.5rem, calc((100vw - var(--wrap)) / 2 + 1.5rem)); }
-.door-panel--biz { padding-right: max(1.5rem, calc((100vw - var(--wrap)) / 2 + 1.5rem)); }
+/* The split is full-bleed, but each half aligns its content to the page
+   gutter. Done with percentages of the container, not 100vw: vw includes the
+   scrollbar, which would drift the copy and can force a horizontal scrollbar. */
+.door-panel--msp { align-items: flex-end; }
+.door-panel--biz { align-items: flex-start; }
+.door-inner {
+  /* half the page container minus one gutter, so the outer edge of each half
+     lands exactly on the page gutter, with no dependence on 100vw */
+  width: min(calc(100% - var(--gutter)), calc(var(--wrap) / 2 - var(--gutter)));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+/* a deliberate seam between the two halves */
+.door-panel--biz { box-shadow: inset 1px 0 0 var(--line-dark); }
 .door-panel--msp:hover,
 .door-panel--msp:focus-within { background: #0A1826; border-top-color: var(--door-accent); }
 .door-panel--biz:hover,
@@ -1189,8 +1199,8 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   color: var(--text-on-dark-muted);
 }
 
-.door-panel .btn { margin-top: auto; align-self: flex-start; }
-.door-panel .btn::after { content: ""; position: absolute; inset: 0; }
+.door-inner .btn { margin-top: auto; }
+.door-inner .btn::after { content: ""; position: absolute; inset: 0; }
 .btn--door { background: var(--door-accent); color: var(--ink); }
 .btn--door:hover { filter: brightness(1.08); }
 
@@ -1311,6 +1321,9 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 /* ---------- 24. Responsive ----------------------------------------------- */
 @media (max-width: 1080px) {
   .doors-split { grid-template-columns: 1fr; }
+  .door-panel { align-items: stretch; padding-inline: var(--gutter); }
+  .door-panel--biz { box-shadow: none; border-top-color: var(--line-dark); }
+  .door-inner { width: 100%; }
   .case-grid { grid-template-columns: 1fr; }
   .legal-wrap { grid-template-columns: 1fr; gap: var(--space-6); }
   .legal-toc {
@@ -1406,8 +1419,8 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
-  .reveal,
-  .reveal-stagger > * { opacity: 1 !important; transform: none !important; }
+  .reveal.is-in,
+  .reveal-stagger.is-in > * { animation: none !important; }
 }
 
 @media print {
