@@ -1096,79 +1096,103 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 
 
 /* ---------- 26. Two-door homepage -------------------------------------- */
-/* A centred hero for the splitter page, and the pair of audience doors.
-   The doors are comparison cards: real surface, own border and shadow, and a
-   button each, so the page's primary decision looks like a decision. */
-.hero-solo { max-width: 60ch; }
+/* The choice is offered once, as a full-bleed split: the page divides in two
+   so the two paths are the layout, not two cards sitting on a band. Each half
+   carries its own surface and accent so a visitor self-selects at a glance. */
+.hero-solo { max-width: 62ch; }
 .hero-solo h1 { margin-block: var(--space-5); }
-.hero-solo .lead { margin-bottom: var(--space-7); }
+.hero-solo .lead { margin-bottom: var(--space-6); }
 
-.door-grid {
+.scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: .625rem;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-faint);
+  min-height: 44px;
+}
+.scroll-cue .arw { font-size: 1rem; animation: nudge 2.4s var(--ease) infinite; }
+@keyframes nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+.section--doors { padding-block: var(--space-9) 0; }
+
+.doors-split {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-5);
+  grid-template-columns: 1fr 1fr;
   margin-top: var(--space-8);
 }
 
-.door {
+.door-panel {
+  --door-accent: var(--lime);
   position: relative;
-  background: var(--ink-raised);
-  border: 1px solid var(--line-dark);
-  padding: clamp(1.75rem, 3vw, 2.75rem);
+  padding: clamp(2.25rem, 4.5vw, 4rem) clamp(1.5rem, 3.5vw, 3.5rem) clamp(2.5rem, 5vw, 4.5rem);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  transition: transform .25s var(--ease), border-color .25s var(--ease),
-              box-shadow .25s var(--ease);
+  border-top: 3px solid transparent;
+  transition: background-color .3s var(--ease), border-color .3s var(--ease);
 }
-.door:hover {
-  transform: translateY(-4px);
-  border-color: rgba(166, 244, 60, .45);
-  box-shadow: 0 26px 54px -30px rgba(0, 0, 0, .75);
-}
-/* the card is the target, but only the button is a link, so focus has to show */
-.door:focus-within {
-  border-color: var(--lime);
-  box-shadow: 0 26px 54px -30px rgba(0, 0, 0, .75);
-}
+.door-panel--msp { background: var(--ink); }
+.door-panel--biz { background: var(--ink-raised); --door-accent: var(--blue-soft); }
+/* the split is full-bleed, but its outer edges line up with the page gutter
+   so panel copy sits on the same axis as the heading above it */
+.door-panel--msp { padding-left: max(1.5rem, calc((100vw - var(--wrap)) / 2 + 1.5rem)); }
+.door-panel--biz { padding-right: max(1.5rem, calc((100vw - var(--wrap)) / 2 + 1.5rem)); }
+.door-panel--msp:hover,
+.door-panel--msp:focus-within { background: #0A1826; border-top-color: var(--door-accent); }
+.door-panel--biz:hover,
+.door-panel--biz:focus-within { background: #0E2032; border-top-color: var(--door-accent); }
 
-.door-index {
-  display: flex;
+.door-eyebrow {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-4);
-  font-size: .75rem;
-  letter-spacing: .16em;
-  color: var(--text-on-dark-faint);
+  gap: .625rem;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
 }
-.door-index::after {
+.door-eyebrow::before {
   content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--line-dark);
+  width: 8px;
+  height: 8px;
+  background: var(--door-accent);
+  flex: none;
 }
 
-.door h3 {
-  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+.door-panel h3 {
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
   letter-spacing: -.03em;
   margin-top: var(--space-2);
 }
 .door-promise {
-  font-size: 1.0625rem;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
   font-weight: 600;
   line-height: 1.45;
-  color: var(--lime);
+  color: var(--door-accent);
 }
-.door .lead { font-size: .9375rem; max-width: none; }
-.door .plus-list { margin-top: var(--space-2); }
-.door .plus-list li { border-top-color: var(--line-dark); font-size: .9375rem; }
-.door .plus-list li::before { color: var(--lime); }
+.door-panel .lead { font-size: .9375rem; max-width: 44ch; }
 
-/* push both buttons to a common baseline however long the copy runs */
-.door .plus-list { margin-bottom: var(--space-6); }
-.door .btn { margin-top: auto; }
-/* stretched link: the whole card is clickable, the card still has one link */
-.door .btn::after { content: ""; position: absolute; inset: 0; }
+/* compact capability chips instead of stacked bordered rows */
+.door-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: var(--space-2); }
+.door-tags li {
+  font-size: .8125rem;
+  padding: .375rem .75rem;
+  border: 1px solid var(--line-dark);
+  color: var(--text-on-dark-muted);
+}
 
+.door-panel .btn { margin-top: auto; align-self: flex-start; }
+.door-panel .btn::after { content: ""; position: absolute; inset: 0; }
+.btn--door { background: var(--door-accent); color: var(--ink); }
+.btn--door:hover { filter: brightness(1.08); }
 
 /* ---------- 27. Case study / example build cards ------------------------ */
 /* One card format for both, per the spec's five-part scope rule. Real work
@@ -1286,7 +1310,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 
 /* ---------- 24. Responsive ----------------------------------------------- */
 @media (max-width: 1080px) {
-  .door-grid { grid-template-columns: 1fr; }
+  .doors-split { grid-template-columns: 1fr; }
   .case-grid { grid-template-columns: 1fr; }
   .legal-wrap { grid-template-columns: 1fr; gap: var(--space-6); }
   .legal-toc {
