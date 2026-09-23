@@ -132,7 +132,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 .section { padding-block: var(--space-9); position: relative; }
-.section--tight { padding-block: var(--space-8); }
 
 .band-dark  { background: var(--ink);      color: var(--text-on-dark); }
 .band-deep  { background: var(--ink-deep); color: var(--text-on-dark); }
@@ -142,7 +141,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- 4. Type primitives ------------------------------------------ */
 .display-1 { font-size: clamp(2.6rem, 6.2vw, 4.6rem); }
 .display-2 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
-.display-3 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); letter-spacing: -.02em; }
 
 .lead {
   font-size: clamp(1rem, 1.25vw, 1.125rem);
@@ -155,6 +153,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .accent { color: var(--lime); }
 .muted  { color: var(--text-on-dark-muted); }
+
+/* small caption label above a block */
+.micro {
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-faint);
+}
+.band-light .micro,
+.band-white .micro { color: var(--text-on-light-faint); }
 
 /* Eyebrow: 11px, .18em tracking, lime marker */
 .eyebrow {
@@ -447,7 +456,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   align-items: end;
   margin-bottom: var(--space-8);
 }
-.sec-head--stack { grid-template-columns: 1fr; }
 
 /* ---------- 10. Stat strip ----------------------------------------------- */
 .stat-strip {
@@ -794,37 +802,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   max-width: 78ch;
 }
 
-/* ---------- 17. People --------------------------------------------------- */
-.people { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line-dark); }
-.person {
-  padding: var(--space-7) var(--space-6);
-  border-right: 1px solid var(--line-dark);
-  display: flex;
-  gap: var(--space-5);
-}
-.person:last-child { border-right: 0; }
-.avatar {
-  width: 56px;
-  height: 56px;
-  flex: none;
-  border: 1px solid var(--lime);
-  color: var(--lime);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-size: 1.375rem;
-  font-weight: 700;
-}
-.person h3 { font-size: 1.25rem; }
-.person .role {
-  font-size: .75rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-on-dark-faint);
-  margin-top: .375rem;
-}
-.person p { font-size: .875rem; color: var(--text-on-dark-muted); margin-top: var(--space-4); line-height: 1.65; }
-
+/* a bordered aside for a standing note under a section */
 .cohort-note {
   margin-top: var(--space-6);
   padding: var(--space-5);
@@ -979,6 +957,31 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 }
 .legal a:hover { color: var(--lime-dim); }
 .legal hr { border: 0; border-top: 1px solid var(--line-light); margin-block: var(--space-7); }
+
+/* Classes inherited from the published legal documents. Without these the
+   contract reads flat: 43 sub-clauses render identically to body text. */
+.legal .legal-intro {
+  font-size: 1.0625rem;
+  color: var(--text-on-light);
+  font-weight: 600;
+}
+.legal .clause {
+  margin-left: 1.5rem;
+  margin-top: var(--space-4);
+}
+.legal .clause-2 {
+  margin-left: 3rem;
+  margin-top: var(--space-4);
+}
+.legal .notice-block {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background: var(--white);
+  border-left: 3px solid var(--line-light);
+  font-size: .9375rem;
+  line-height: 1.7;
+  color: var(--text-on-light-muted);
+}
 
 /* ---------- 21. Vertical switcher (Claude Launch Program) ---------------- */
 .vtabs {
@@ -1388,9 +1391,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .flow { grid-template-columns: 1fr; }
   .delta { grid-template-columns: 1fr auto 1fr; row-gap: var(--space-5); }
   .delta .badge { grid-column: 1 / -1; justify-self: start; }
-  .people { grid-template-columns: 1fr; }
-  .person { border-right: 0; border-bottom: 1px solid var(--line-dark); }
-  .person:last-child { border-bottom: 0; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
   .section { padding-block: var(--space-8); }
 }
