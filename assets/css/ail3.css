@@ -1095,7 +1095,9 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 
 
 /* ---------- 26. Two-door homepage -------------------------------------- */
-/* A centred hero for the splitter page, and the pair of audience doors. */
+/* A centred hero for the splitter page, and the pair of audience doors.
+   The doors are comparison cards: real surface, own border and shadow, and a
+   button each, so the page's primary decision looks like a decision. */
 .hero-solo { max-width: 60ch; }
 .hero-solo h1 { margin-block: var(--space-5); }
 .hero-solo .lead { margin-bottom: var(--space-7); }
@@ -1103,31 +1105,68 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .door-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--line-dark);
-  border: 1px solid var(--line-dark);
-  margin-top: var(--space-7);
+  gap: var(--space-5);
+  margin-top: var(--space-8);
 }
+
 .door {
-  background: var(--ink-deep);
-  padding: clamp(1.75rem, 3vw, 2.5rem);
+  position: relative;
+  background: var(--ink-raised);
+  border: 1px solid var(--line-dark);
+  padding: clamp(1.75rem, 3vw, 2.75rem);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  transition: background-color .25s var(--ease);
+  transition: transform .25s var(--ease), border-color .25s var(--ease),
+              box-shadow .25s var(--ease);
 }
-.door:hover { background: #0C1727; }
-.door h2 { margin-top: var(--space-2); }
-.door .lead { color: var(--text-on-dark-muted); }
-.door .plus-list li { border-top-color: var(--line-dark); }
+.door:hover {
+  transform: translateY(-4px);
+  border-color: rgba(166, 244, 60, .45);
+  box-shadow: 0 26px 54px -30px rgba(0, 0, 0, .75);
+}
+/* the card is the target, but only the button is a link, so focus has to show */
+.door:focus-within {
+  border-color: var(--lime);
+  box-shadow: 0 26px 54px -30px rgba(0, 0, 0, .75);
+}
+
+.door-index {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: .75rem;
+  letter-spacing: .16em;
+  color: var(--text-on-dark-faint);
+}
+.door-index::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line-dark);
+}
+
+.door h3 {
+  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+  letter-spacing: -.03em;
+  margin-top: var(--space-2);
+}
+.door-promise {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--lime);
+}
+.door .lead { font-size: .9375rem; max-width: none; }
+.door .plus-list { margin-top: var(--space-2); }
+.door .plus-list li { border-top-color: var(--line-dark); font-size: .9375rem; }
 .door .plus-list li::before { color: var(--lime); }
-.door .card-foot {
-  margin-top: auto;
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--line-dark);
-}
-.door .link-arrow { color: var(--lime); }
-.door .link-arrow:hover { color: #B8F759; }
+
+/* push both buttons to a common baseline however long the copy runs */
+.door .plus-list { margin-bottom: var(--space-6); }
+.door .btn { margin-top: auto; }
+/* stretched link: the whole card is clickable, the card still has one link */
+.door .btn::after { content: ""; position: absolute; inset: 0; }
 
 /* ---------- 27. Spacing utilities -------------------------------------- */
 /* These exist so no element needs a style attribute, which lets the
@@ -1142,6 +1181,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 
 /* ---------- 24. Responsive ----------------------------------------------- */
 @media (max-width: 1080px) {
+  .door-grid { grid-template-columns: 1fr; }
   .legal-wrap { grid-template-columns: 1fr; gap: var(--space-6); }
   .legal-toc {
     position: static;
@@ -1152,7 +1192,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
     background: var(--white);
   }
   .legal .legal-toc a { min-height: 44px; display: flex; align-items: center; }
-  .door-grid,
   .vpanel,
   .hero-grid,
   .method-grid,
