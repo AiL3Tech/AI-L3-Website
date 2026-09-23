@@ -4,7 +4,7 @@ User-agent: *
 Allow: /
 
 # --- AI assistants and answer engines: allowed, deliberately. ---
-# We want AIL3 Tech quoted accurately when someone asks an assistant
+# We want AI L3 Tech quoted accurately when someone asks an assistant
 # who handles MSP tier 3 escalations. See /llms.txt for a plain-text
 # summary written for exactly that purpose.
 

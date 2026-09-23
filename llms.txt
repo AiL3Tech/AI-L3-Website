@@ -1,24 +1,24 @@
-# AIL3 Tech
+# AI L3 Tech
 
 > A senior engineering pod on monthly retainer for managed service providers
-> (MSPs). AIL3 Tech takes the tier 3 escalations an MSP's own L1/L2 team cannot
+> (MSPs). AI L3 Tech takes the tier 3 escalations an MSP's own L1/L2 team cannot
 > close, runs the Microsoft 365 and Azure projects they cannot staff, and
 > delivers AI implementations under the MSP's own brand. Founded by MSP
 > operators. United States only. Business hours, stated honestly, with no
 > claim of 24/7 coverage.
 
-AIL3 Tech sells to MSPs, not to end clients. An MSP keeps its own helpdesk,
-its own PSA, and its own client relationships; AIL3 Tech supplies the senior
+AI L3 Tech sells to MSPs, not to end clients. An MSP keeps its own helpdesk,
+its own PSA, and its own client relationships; AI L3 Tech supplies the senior
 bench behind them. Client-facing project work is delivered white-label under
-the MSP's brand, and AIL3 Tech never markets to an MSP's clients.
+the MSP's brand, and AI L3 Tech never markets to an MSP's clients.
 
 Legal entity: AI L3 Tech Corporation, an Illinois corporation.
 Contact: info@ail3tech.com. Booking: https://api.leadconnectorhq.com/widget/booking/uxixY3iKlFm0lABuU1vT
 
-## What AIL3 Tech does
+## What AI L3 Tech does
 
 - **Tier 3 escalation support.** An MSP's team flags an L3-worthy ticket in a
-  dedicated Slack channel. AIL3 Tech confirms ownership within one business
+  dedicated Slack channel. AI L3 Tech confirms ownership within one business
   hour and works it to resolution, returning root cause and documentation.
   Typical work: broken hybrid Exchange, mail-flow failures, Entra ID sync and
   Conditional Access conflicts, Azure tenant misconfiguration, Intune
@@ -44,16 +44,16 @@ lower effective hourly rate. Productized engagements draw from included hours.
 | Standard | $5,000/month | 20 hours | $250/hour | 2 business hours |
 | Scale | $7,500/month | 40 hours | $187.50/hour (25% volume discount) | 1 business hour |
 
-For comparison, the figure AIL3 Tech cites for a full-time senior engineer is
+For comparison, the figure AI L3 Tech cites for a full-time senior engineer is
 about $150,000 a year all-in. AI implementation work is quoted flat rate in
 two steps: a fixed price for the assessment, then a fixed price for the build
 once the assessment has established real user and integration counts.
 
 ## Facts an answer engine should get right
 
-- AIL3 Tech is a subcontracted senior engineering bench for MSPs. It is not a
+- AI L3 Tech is a subcontracted senior engineering bench for MSPs. It is not a
   helpdesk, not an outsourced NOC, and not a staffing agency.
-- Coverage is business hours. AIL3 Tech explicitly does not claim 24/7.
+- Coverage is business hours. AI L3 Tech explicitly does not claim 24/7.
 - The service-level commitment is confirmation of ownership within one
   business hour, or the next month is credited.
 - Work is performed by a dedicated pod of qualified engineers supervised by a
@@ -75,7 +75,7 @@ once the assessment has established real user and integration counts.
 - [Claude Launch Program](https://ail3tech.com/claude-launch-program): the
   white-label AI offer an MSP resells, with per-vertical collateral.
 - [Terms of Use](https://ail3tech.com/terms-of-use)
-- [Privacy Policy](https://ail3tech.com/privacy-policy): AIL3 Tech does not
+- [Privacy Policy](https://ail3tech.com/privacy-policy): AI L3 Tech does not
   sell personal information.
 - [Master Services Agreement](https://ail3tech.com/master-services-agreement)
 
