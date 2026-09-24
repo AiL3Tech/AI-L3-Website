@@ -228,6 +228,24 @@ ul { margin: 0; padding: 0; list-style: none; }
   transition: background-color .2s var(--ease), color .2s var(--ease),
               border-color .2s var(--ease), transform .2s var(--ease);
 }
+/* Arrows are drawn, not typed. Inter has no U+2197 and Inter Tight has no
+   U+2192, so as characters they fell out of the webfont into whatever the
+   operating system happened to provide: Segoe UI Symbol on Windows, Apple
+   Symbols on iOS, Noto on Android. Three platforms, three arrow shapes. */
+.arw,
+.delta .arrow { display: inline-flex; }
+.arw svg,
+.delta .arrow svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
 .btn .arw { font-size: 1rem; line-height: 1; transition: transform .2s var(--ease); }
 .btn:hover .arw { transform: translate(3px, -3px); }
 
