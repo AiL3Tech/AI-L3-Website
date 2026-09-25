@@ -73,8 +73,8 @@ ORG = {
         "Microsoft 365 migration", "Microsoft Entra ID", "Conditional Access", "Microsoft Intune",
         "Azure infrastructure", "Server to cloud migration", "Mailbox migration",
         "Claude implementation", "AI workflow automation", "Custom AI applications",
-        "AI for law firms", "AI for accounting firms", "AI for real estate agents",
-        "AI for contractors", "AI for engineering firms", "AI for landscaping companies",
+        "AI for law practices", "AI for accounting practices", "AI for real estate agents",
+        "AI for contractors", "AI for engineering companies", "AI for landscaping companies",
     ],
     "contactPoint": [{
         "@type": "ContactPoint", "contactType": "sales", "email": "info@ail3tech.com",
@@ -278,6 +278,15 @@ def main():
             for found in re.findall(re.escape(rel) + r"\?v=([0-9a-f]+)", doc):
                 if found != digest:
                     problems.append(f"{page.name}: stale stamp on {rel} ({found} != {digest})")
+
+        # House style, from the README: never "firm". It reached the keyword
+        # array once already and nothing caught it, so the build checks now.
+        for hit in re.finditer(r"\b[Ff]irms?\b", doc):
+            if "confirm" in doc[max(0, hit.start() - 4):hit.end()].lower():
+                continue
+            line = doc[:hit.start()].count(chr(10)) + 1
+            problems.append(f"{page.name}:{line}: says '{hit.group(0)}'; "
+                            f"use company, companies, practice or client")
 
         m = re.search(r'<script type="application/ld\+json">(.*?)</script>', doc, re.S)
         if m:
