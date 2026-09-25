@@ -273,8 +273,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* A finger gets no hover state, so without this a tap looks like nothing
    happened until the next page paints. The press is the only feedback a touch
    visitor ever sees, and it reads on a mouse too. */
-.btn:active,
-.btn--door:active { transform: translateY(1px); }
+.btn:active { transform: translateY(1px); }
 .btn:active .arw { transform: none; }
 .btn--lime:active { background: #93E024; }
 .btn--outline:active { border-color: var(--lime); color: var(--lime); }
@@ -1231,6 +1230,8 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 
 .door-panel {
   --door-accent: var(--lime);
+  --door-accent-hover: #B8F759;
+  --door-accent-press: #93E024;
   position: relative;
   --door-gap: clamp(1.5rem, 3vw, 3.5rem);   /* breathing room at the seam */
   padding-block: clamp(2.25rem, 4.5vw, 4rem) clamp(2.5rem, 5vw, 4.5rem);
@@ -1241,7 +1242,12 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   transition: background-color .3s var(--ease), border-color .3s var(--ease);
 }
 .door-panel--msp { background: var(--ink); }
-.door-panel--biz { background: var(--ink-raised); --door-accent: var(--blue-soft); }
+.door-panel--biz {
+  background: var(--ink-raised);
+  --door-accent: var(--blue-soft);
+  --door-accent-hover: #6B9BD4;
+  --door-accent-press: #3F72AE;
+}
 /* The split is full-bleed, but each half aligns its outer edge to the page
    gutter and holds --door-gap back from the seam. Percentage padding resolves
    against the panel's own width, so this never depends on 100vw, which would
@@ -1314,7 +1320,13 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .door-inner .btn { margin-top: auto; }
 .door-inner .btn::after { content: ""; position: absolute; inset: 0; }
 .btn--door { background: var(--door-accent); color: var(--ink); }
-.btn--door:hover { filter: brightness(1.08); }
+/* This button carries the stretched overlay above, which is anchored to the
+   panel. filter and transform both create a containing block, and the overlay
+   would re-anchor to the button, shrink from 720px to 297px, drop the cursor,
+   release the hover, expand again and start over: a 60-per-second flicker.
+   So the door button gives its feedback with colour alone. */
+.btn--door:hover { background: var(--door-accent-hover); }
+.btn--door:active { background: var(--door-accent-press); transform: none; }
 
 /* ---------- 27. Case study / example build cards ------------------------ */
 /* One card format for both, per the spec's five-part scope rule. Real work
