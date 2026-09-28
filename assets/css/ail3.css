@@ -1410,8 +1410,10 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   background: var(--door-accent);
   color: var(--ink);
   /* The two doors are a symmetric pair, so their buttons match rather than
-     each sizing to its own label. The longer label sets the width. */
-  min-width: 19rem;
+     each sizing to its own label. Capped at the space available: a flat 19rem
+     is wider than a 320px phone can hold once the panel padding is taken off,
+     and it pushed the whole page out to 352px. */
+  min-width: min(19rem, 100%);
   justify-content: space-between;
 }
 /* Green against the white door is 2.71:1, under the 3 a control needs, so on
