@@ -176,6 +176,18 @@ ul { margin: 0; padding: 0; list-style: none; }
 .row .n,
 .pain .n { font-family: var(--font-mono); font-feature-settings: "tnum" 1; }
 
+/* Headings are navy on a light surface. The kit gives navy the headers and the
+   key UI; before this every heading on a light band came through in the body
+   text colour, so whole sections carried no brand colour at all. Body copy
+   stays near-black. 8.91:1 on the page, 9.56:1 on a white card. */
+.band-light h1, .band-light h2, .band-light h3,
+.band-white h1, .band-white h2, .band-white h3 { color: var(--navy); }
+/* except where the heading sits on a panel that carries its own navy */
+.band-light .card--feature h3, .band-white .card--feature h3,
+.band-light .price--featured h3, .band-white .price--featured h3,
+.band-light .door-panel--msp h3, .band-white .door-panel--msp h3,
+.band-light .card--feature h2, .band-white .card--feature h2 { color: var(--text-on-dark); }
+
 /* ---------- 4. Type primitives ------------------------------------------ */
 .display-1 { font-size: clamp(2.6rem, 6.2vw, 4.6rem); }
 .display-2 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
@@ -1281,7 +1293,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   border-top: 3px solid transparent;
   transition: background-color .3s var(--ease), border-color .3s var(--ease);
 }
-.door-panel--msp { background: var(--navy); }
+.door-panel--msp { background: var(--navy); border-top-color: var(--green); }
 /* The navy door sits inside a light section, so it has to declare its own
    text colours rather than inherit the section's. Without these the copy
    comes through in near-black on navy. */
@@ -1301,6 +1313,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .door-panel--biz {
   background: var(--white);
   color: var(--text-on-light);
+  border-top-color: var(--cyan);
 }
 .door-panel--biz .door-eyebrow { color: var(--text-on-light-muted); }
 .door-panel--biz .door-eyebrow::before { background: var(--cyan); }
