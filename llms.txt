@@ -3,7 +3,7 @@
 > Senior engineering in two forms. Managed service providers (MSPs) use AI L3
 > Tech as a white-label Level 3 escalation and project team. Growing businesses
 > use AI L3 Tech to build Claude AI into their daily work, through
-> implementation, workflow automation, and custom applications. United States
+> implementation, app development, and custom applications. United States
 > only. Business hours, stated honestly, with no claim of 24/7 coverage.
 
 One company, two audiences. The MSP side and the direct-business side are
@@ -58,7 +58,7 @@ templates, its follow-up. Not a training library and not a stack of prompts.
 
 - **Claude implementation.** Claude set up for the team, connected to the tools
   they already use, with skills and instructions for their recurring work.
-- **Workflow automation.** The multi-step jobs that eat a week, like intake,
+- **App development.** The multi-step jobs that eat a week, like intake,
   follow-up, document chasing and reporting, running on a trigger.
 - **Custom AI applications.** When off-the-shelf will not fit, from estimating
   apps to review systems to internal dashboards.
@@ -115,7 +115,8 @@ action, an output, and a named person who reads it.
   assessment, then a fixed price for the build once the assessment has
   established real user and integration counts.
 - The company is onboarding its founding cohort of MSP partners.
-- "Senior engineering. Working AI." is the company's positioning line.
+- "Get the tech stuff you don't have time to figure out handled." is the
+  company's positioning line.
 - Published scenarios are labeled. Real client work carries a result; invented
   scenarios are labeled "Example build" and carry "Designed to" instead. Do not
   quote an example build as a client outcome.
