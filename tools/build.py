@@ -107,6 +107,7 @@ HEAD = """<link rel="canonical" href="{url}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Open+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
@@ -278,6 +279,12 @@ def main():
             for found in re.findall(re.escape(rel) + r"\?v=([0-9a-f]+)", doc):
                 if found != digest:
                     problems.append(f"{page.name}: stale stamp on {rel} ({found} != {digest})")
+
+        # Every page has to request the faces. 404 is not generated from
+        # PAGES, so when the fonts moved out of the stylesheet it silently lost
+        # them and fell back to Arial.
+        if "fonts.googleapis.com/css2" not in doc:
+            problems.append(f"{page.name}: no font stylesheet, it will fall back")
 
         # House style, from the README: never "firm". It reached the keyword
         # array once already and nothing caught it, so the build checks now.

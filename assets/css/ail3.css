@@ -5,7 +5,10 @@
    derived values below exist.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Open+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap');
+/* The faces are requested from the page head, not with @import. An @import
+   here is only discovered once this file has been fetched and parsed, so the
+   fonts queue behind it; a link in the head is found by the preload scanner
+   straight away. */
 
 /* ---------- 1. Tokens ---------------------------------------------------- */
 :root {
@@ -52,7 +55,10 @@
   --font-body:    'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   --font-mono:    'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
 
-  /* Space scale (density 4/10 — marketing) */
+  /* Space scale (density 4/10, marketing). Kept complete even where a step is
+     not currently called on: a scale with a hole in it stops being a scale,
+     and the next person reaching for the smallest step should find it here
+     rather than inventing a value. */
   --space-1: .25rem;
   --space-2: .5rem;
   --space-3: .75rem;
@@ -1530,22 +1536,33 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
    widget reports its size, so the min-height is only there to stop the page
    collapsing and shifting while that happens. */
 .booking-frame {
-  /* no border or padding: the widget brings its own card, and a second frame
-     around it just reads as a box inside a box */
   background: transparent;
+  /* The space is reserved HERE, not on the iframe. The embed script lifts the
+     iframe out of flow while it starts up, position absolute and off to the
+     left, so anything reserved on the iframe stops holding the column open and
+     the page collapses by the full height and springs back a few seconds
+     later. Measured at 0.21 to 0.59 layout shift before this. */
+  min-height: 800px;
 }
+@media (max-width: 1079px) { .booking-frame { min-height: 960px; } }
+@media (max-width: 560px)  { .booking-frame { min-height: 830px; } }
 .booking-frame iframe {
   display: block;
   width: 100%;
-  min-height: 720px;
+  min-height: 800px;   /* it settles at 787 above 1080 */
   border: 0;
   overflow: hidden;
 }
-@media (max-width: 860px) {
-  /* The embed reports its own height once it loads, around 815px on a phone
-     and 848px on a tablet. The floor only has to hold the space until then, so
-     it sits just under those rather than padding them out with empty white. */
-  .booking-frame iframe { min-height: 820px; }
+/* The embed reports its own height once it loads, and the page jumps by
+   whatever the reserved space got wrong. These are measured, not guessed: the
+   embed stacks its two columns below about 1080 and grows a lot. Reserving
+   720 everywhere was costing 232px of shift at 1024 and 67px at 1440.
+   Widest first, so the narrower rule wins where it applies. */
+@media (max-width: 1079px) {
+  .booking-frame iframe { min-height: 960px; }   /* settles at 952 */
+}
+@media (max-width: 560px) {
+  .booking-frame iframe { min-height: 830px; }   /* settles at 820 */
 }
 
 /* shown only when the calendar embed is blocked */
