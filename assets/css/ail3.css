@@ -70,8 +70,10 @@
 
   /* Label type. Small caps labels read at 11px on a desktop pointer, but on a
      phone that is below the 12px floor, so both step up at the breakpoint. */
-  --fs-label:    .6875rem;   /* 11px */
-  --fs-label-sm: .625rem;    /* 10px */
+  /* One size for every small caps label. There used to be a second at 10px,
+     a single pixel apart, which no reader could tell was deliberate. */
+  --fs-label:    .6875rem;   /* 11px, lifting to 12 on touch below */
+  --fs-label-sm: var(--fs-label);
 
   --ease: cubic-bezier(.22, .61, .36, 1);
 }
@@ -284,8 +286,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .arw svg,
 .delta .arrow svg {
   display: block;
-  width: 1em;
-  height: 1em;
+  /* fixed, not 1em: at 1em the same arrow came out 15px beside a 15px label
+     and 16px inside a button */
+  width: 16px;
+  height: 16px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
@@ -312,7 +316,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .band-white .btn--outline:hover { border-color: var(--navy); background: var(--navy); color: var(--white); }
 
 .btn--dark { background: var(--navy); color: var(--white); }
-.btn--dark:hover { background: var(--navy-raised); }
+.btn--dark:hover { box-shadow: inset 0 0 0 999px rgba(255, 255, 255, .14); }
 
 /* A finger gets no hover state, so without this a tap looks like nothing
    happened until the next page paints. The press is the only feedback a touch
@@ -323,7 +327,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn--outline:active { border-color: var(--cyan); color: var(--cyan); }
 .band-light .btn--outline:active,
 .band-white .btn--outline:active { border-color: var(--navy); background: var(--navy); color: var(--white); }
-.btn--dark:active { background: var(--navy-raised); }
+.btn--dark:active { box-shadow: inset 0 0 0 999px rgba(26, 26, 26, .14); }
 .link-arrow:active { color: var(--cyan); }
 .nav-links a:not(.btn):active { color: var(--white); }
 .footer-cols a:active,
@@ -748,7 +752,7 @@ a, button, summary, [role="tab"] { -webkit-tap-highlight-color: transparent; }
 .note-card {
   background: var(--white);
   border-left: 3px solid var(--cyan);
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-6);   /* matches the card family */
   margin-top: var(--space-7);
   box-shadow: 0 16px 40px -28px rgba(26, 26, 26, .28);
 }
@@ -923,7 +927,14 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   font-weight: 700;
   letter-spacing: -.02em;
   min-height: 44px;
+  transition: color .2s var(--ease);
 }
+/* The rows are the only control in this section and had no hover at all. */
+.faq summary:hover { color: var(--navy); }
+.band-dark .faq summary:hover,
+.band-deep .faq summary:hover { color: var(--cyan); }
+.faq summary:hover .faq-mark { color: var(--navy); }
+
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after {
   content: "+";
@@ -1395,7 +1406,14 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 
 .door-inner .btn { margin-top: auto; }
 .door-inner .btn::after { content: ""; position: absolute; inset: 0; }
-.btn--door { background: var(--door-accent); color: var(--ink); }
+.btn--door {
+  background: var(--door-accent);
+  color: var(--ink);
+  /* The two doors are a symmetric pair, so their buttons match rather than
+     each sizing to its own label. The longer label sets the width. */
+  min-width: 19rem;
+  justify-content: space-between;
+}
 /* Green against the white door is 2.71:1, under the 3 a control needs, so on
    that panel the button carries the darkened green as an edge. On navy the
    fill alone is 3.53:1 and no edge is needed. */
@@ -1442,7 +1460,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
-  padding: .375rem .625rem;
+  padding: .375rem .75rem;
   border: 1px solid var(--navy);
   color: var(--text-on-light);
 }
@@ -1563,8 +1581,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
    device too, so the floor keys off the input as well as the width. */
 @media (max-width: 1080px), (hover: none) {
   :root {
-    --fs-label: .75rem;
-    --fs-label-sm: .75rem;
+    --fs-label: .75rem;   /* the 12px floor on touch */
   }
 }
 
