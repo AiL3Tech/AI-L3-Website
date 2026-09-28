@@ -65,14 +65,14 @@ ORG = {
     "slogan": "Senior engineering. Working AI.",
     "description": ("AI L3 Tech provides senior engineering in two forms: white-label L3 escalation "
                     "and project delivery for managed service providers, and Claude AI implementation, "
-                    "workflow automation and custom AI applications for growing businesses."),
+                    "app development and custom AI applications for growing businesses."),
     "address": {"@type": "PostalAddress", "addressRegion": "IL", "addressCountry": "US"},
     "areaServed": {"@type": "Country", "name": "United States"},
     "knowsAbout": [
         "Level 3 IT support", "MSP escalation support", "White label IT engineering",
         "Microsoft 365 migration", "Microsoft Entra ID", "Conditional Access", "Microsoft Intune",
         "Azure infrastructure", "Server to cloud migration", "Mailbox migration",
-        "Claude implementation", "AI workflow automation", "Custom AI applications",
+        "Claude implementation", "AI app development", "Custom AI applications",
         "AI for law practices", "AI for accounting practices", "AI for real estate agents",
         "AI for contractors", "AI for engineering companies", "AI for landscaping companies",
     ],
@@ -97,7 +97,7 @@ SERVICES = {
                    "Managed service providers"),
     "claude": ("White-label Claude AI implementation for managed service providers",
                "Managed service providers"),
-    "ai": ("Claude AI implementation, workflow automation and custom AI applications for small "
+    "ai": ("Claude AI implementation, app development and custom AI applications for small "
            "and mid-sized businesses", "Small and mid-sized businesses"),
 }
 
