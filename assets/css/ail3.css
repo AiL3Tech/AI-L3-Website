@@ -300,12 +300,23 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn .arw { font-size: 1rem; line-height: 1; transition: transform .2s var(--ease); }
 .btn:hover .arw { transform: translate(3px, -3px); }
 
-.btn--lime { background: var(--green); color: var(--ink); }
+/* White label on the green, with a green edge. Asked for directly, and worth
+   recording what it costs: white on this green is 2.71:1 where body text needs
+   4.5, and a green edge against the page is 2.53:1 where a control boundary
+   needs 3. The button is still perfectly usable to most people; it is people
+   with low vision or a poor screen in bright light who lose it. Darkening the
+   green to #22891A would carry white text at 4.51:1 and need no border at all,
+   but that is not the green the kit issues. */
+.btn--lime {
+  background: var(--green);
+  color: var(--white);
+  border-color: var(--green);
+}
 /* Green is 2.53:1 against the off-white page, so on a light band the fill is
    not enough to mark the control and it carries the darkened green as an edge.
    On navy the fill alone is 3.53:1 and needs none. */
 .band-light .btn--lime,
-.band-white .btn--lime { border-color: var(--navy); }
+.band-white .btn--lime { border-color: var(--green); }
 .btn--lime:hover { background: #3ACC2E; }
 
 .btn--outline { border-color: var(--edge-control-dark); color: var(--text-on-dark); }
@@ -607,7 +618,7 @@ a, button, summary, [role="tab"] { -webkit-tap-highlight-color: transparent; }
 .band-dark .stat .k,
 .band-deep .stat .k { color: var(--text-on-dark-muted); }
 
-.stat--lime { background: var(--green); color: var(--ink); border-right: 0; }
+.stat--lime { background: var(--green); color: var(--white); border-right: 0; }
 .stat--lime .v { font-size: clamp(1.5rem, 2.2vw, 1.9rem); }
 .stat--lime .k,
 .band-dark .stat--lime .k,
@@ -1402,7 +1413,7 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 /* Green against the white door is 2.71:1, under the 3 a control needs, so on
    that panel the button carries the darkened green as an edge. On navy the
    fill alone is 3.53:1 and no edge is needed. */
-.door-panel--biz .btn--door { border-color: var(--navy); }
+.door-panel--biz .btn--door { border-color: var(--green); }
 /* This button carries the stretched overlay above, which is anchored to the
    panel. filter and transform both create a containing block, and the overlay
    would re-anchor to the button, shrink from 720px to 297px, drop the cursor,
