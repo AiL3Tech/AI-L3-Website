@@ -351,8 +351,11 @@ a, button, summary, [role="tab"] { -webkit-tap-highlight-color: transparent; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(31, 68, 128, .94);
-  backdrop-filter: blur(12px);
+  /* Opaque, not 94%. Translucent, the bar composited against whatever was
+     behind it, so the green button on it measured 3.70:1 over the old dark
+     page and 3.01:1 over the off-white one, right on the line. The blur went
+     with it: it does nothing behind an opaque fill. */
+  background: var(--navy);
   border-bottom: 1px solid var(--line-dark);
 }
 .nav .wrap {
