@@ -933,7 +933,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .faq summary:hover { color: var(--navy); }
 .band-dark .faq summary:hover,
 .band-deep .faq summary:hover { color: var(--cyan); }
-.faq summary:hover .faq-mark { color: var(--navy); }
 
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after {
@@ -1263,22 +1262,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .hero-solo h1 { margin-block: var(--space-5); }
 .hero-solo .lead { margin-bottom: var(--space-6); }
 
-.scroll-cue {
-  display: inline-flex;
-  align-items: center;
-  gap: .625rem;
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--text-on-dark-faint);
-  min-height: 44px;
-}
-.scroll-cue .arw { font-size: 1rem; animation: nudge 2.4s var(--ease) infinite; }
-@keyframes nudge {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
-}
 
 .section--doors { padding-block: var(--space-9) 0; }
 
@@ -1803,3 +1786,57 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .pain p  { color: var(--text-on-light-muted); }
 .pain .n { color: var(--navy); }
 .pain:hover { background: var(--paper); }
+
+
+/* ---------- Hero photograph ---------------------------------------------
+   The picture carries pure white in places, the window behind the desks, and
+   the copy sits over the left of it. A flat wash dark enough for white text
+   there would need about 88% and the photograph would be gone, so the wash is
+   a gradient: solid navy under the words, thinning across to let the room
+   show. Each tier loads its own file; a phone has no use for a 1920px image.
+   -------------------------------------------------------------------------- */
+.hero--photo {
+  background-image: url("../img/hero-image-800.webp");
+  background-size: cover;
+  background-position: 70% center;
+  background-repeat: no-repeat;
+}
+@media (min-width: 561px) {
+  .hero--photo { background-image: url("../img/hero-image-1280.webp"); }
+}
+@media (min-width: 1281px) {
+  .hero--photo { background-image: url("../img/hero-image.webp"); }
+}
+
+/* the wash. ::before so it sits under .hero > .wrap, which is positioned */
+.hero--photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    var(--navy) 0%,
+    var(--navy) 40%,
+    rgba(31, 68, 128, .88) 58%,
+    rgba(31, 68, 128, .66) 100%
+  );
+}
+
+/* On a tablet and a phone the copy runs the full width, so there is no clear
+   side to thin towards. The wash runs top to bottom instead, heaviest where
+   the headline sits. */
+@media (max-width: 1080px) {
+  .hero--photo { background-position: 60% center; }
+  .hero--photo::before {
+    background: linear-gradient(
+      175deg,
+      rgba(31, 68, 128, .95) 0%,
+      rgba(31, 68, 128, .93) 55%,
+      rgba(31, 68, 128, .80) 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero--photo { background-attachment: scroll; }   /* never fixed: it janks */
+}
