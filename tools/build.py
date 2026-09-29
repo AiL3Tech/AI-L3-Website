@@ -273,6 +273,31 @@ def build_graph(doc, url, img, title, desc, label, kind):
     return graph
 
 
+def font_role_conflicts(css):
+    """Selectors handed the mono face and then the display face by a later rule.
+
+    The kit reserves the mono face for figures. Three blocks quietly took it
+    back: every price, stat and delta on the site rendered in Archivo while a
+    rule fifty lines above said mono, because the later rule won on source
+    order at equal specificity. Nothing rendered wrong enough to notice.
+    """
+    body = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    seen = {}
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", body):
+        sel, decls = m.group(1), m.group(2)
+        fam = re.search(r"font-family:\s*var\((--font-[a-z]+)\)", decls)
+        if not fam:
+            continue
+        for part in (x.strip() for x in sel.split(",")):
+            if part and not part.startswith("@"):
+                seen.setdefault(part, []).append(fam.group(1))
+    out = []
+    for part, faces in seen.items():
+        if "--font-mono" in faces and faces[-1] != "--font-mono":
+            out.append((part, faces))
+    return out
+
+
 def main():
     problems = []
 
@@ -318,6 +343,10 @@ def main():
         for rel, digest in digests.items():
             text = re.sub(rf"({re.escape(rel)})(\?v=[0-9a-f]+)?", rf"\1?v={digest}", text)
         page.write_text(text, encoding="utf-8")
+
+    for sel, faces in font_role_conflicts((ROOT / "assets/css/ail3.css").read_text(encoding="utf-8")):
+        problems.append(f"ail3.css: {sel} is given {' then '.join(faces)}; "
+                        f"the mono face is for figures and a later rule takes it back")
 
     # ---- 3. verify --------------------------------------------------------
     print("checks")

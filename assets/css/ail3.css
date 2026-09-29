@@ -562,9 +562,8 @@ a, button, summary, [role="tab"] { -webkit-tap-highlight-color: transparent; }
   color: var(--text-on-dark-faint);
 }
 .delta .v {
-  font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -.03em;
   margin-top: .25rem;
 }
@@ -622,8 +621,7 @@ a, button, summary, [role="tab"] { -webkit-tap-highlight-color: transparent; }
 .band-deep .stat { border-color: var(--line-dark); }
 .stat:last-child { border-right: 0; }
 .stat .v {
-  font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(2.2rem, 3.6vw, 3rem);
   letter-spacing: -.035em;
   line-height: 1;
@@ -816,8 +814,7 @@ a, button, summary, [role="tab"] { -webkit-tap-highlight-color: transparent; }
 }
 .price--featured .price-name { color: var(--white); }
 .price-fig {
-  font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(2.2rem, 3.4vw, 2.9rem);
   letter-spacing: -.035em;
   margin-top: var(--space-4);
@@ -1293,8 +1290,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .reveal-stagger.is-in > *:nth-child(3) { animation-delay: .14s; }
 .reveal-stagger.is-in > *:nth-child(4) { animation-delay: .21s; }
 
-
-
 /* ---------- 26. Two-door homepage -------------------------------------- */
 /* The choice is offered once, as a full-bleed split: the page divides in two
    so the two paths are the layout, not two cards sitting on a band. Each half
@@ -1302,7 +1297,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .hero-solo { max-width: 62ch; }
 .hero-solo h1 { margin-block: var(--space-5); }
 .hero-solo .lead { margin-bottom: var(--space-6); }
-
 
 .section--doors { padding-block: var(--space-9) 0; }
 
@@ -1490,70 +1484,13 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   border: 1px solid var(--navy);
   color: var(--text-on-light);
 }
-.case-badge--real { background: var(--green); border-color: var(--cyan); color: var(--ink); }
 .band-dark .case-badge,
 .band-deep .case-badge { color: var(--cyan); border-color: rgba(0, 195, 245, .55); }
-
-.case-caption {
-  font-size: .75rem;
-  color: var(--text-on-light-faint);
-  margin-top: calc(var(--space-3) * -1);
-}
-.band-dark .case-caption,
-.band-deep .case-caption { color: var(--text-on-dark-faint); }
 
 .case-card h3 { font-size: clamp(1.15rem, 1.7vw, 1.4rem); letter-spacing: -.02em; }
 .case-situation { font-size: .9375rem; line-height: 1.65; color: var(--text-on-light-muted); }
 .band-dark .case-situation,
 .band-deep .case-situation { color: var(--text-on-dark-muted); }
-
-/* the five-part scope, as a definition list so label and value stay paired */
-.case-scope { margin: 0; border-top: 1px solid var(--line-light); }
-.band-dark .case-scope,
-.band-deep .case-scope { border-top-color: var(--line-dark); }
-.case-scope > div {
-  display: grid;
-  grid-template-columns: 7.5rem 1fr;
-  gap: var(--space-4);
-  padding-block: var(--space-3);
-  border-bottom: 1px solid var(--line-light);
-}
-.band-dark .case-scope > div,
-.band-deep .case-scope > div { border-bottom-color: var(--line-dark); }
-.case-scope dt {
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-on-light-faint);
-  padding-top: .1rem;
-}
-.band-dark .case-scope dt,
-.band-deep .case-scope dt { color: var(--text-on-dark-faint); }
-.case-scope dd { margin: 0; font-size: .875rem; line-height: 1.55; color: var(--text-on-light); }
-.band-dark .case-scope dd,
-.band-deep .case-scope dd { color: var(--text-on-dark); }
-
-.case-outcome {
-  margin-top: auto;
-  padding-top: var(--space-4);
-  font-size: .9375rem;
-  line-height: 1.6;
-  color: var(--text-on-light-muted);
-}
-.band-dark .case-outcome,
-.band-deep .case-outcome { color: var(--text-on-dark-muted); }
-.case-outcome b {
-  display: block;
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--navy);
-  margin-bottom: .375rem;
-}
-.band-dark .case-outcome b,
-.band-deep .case-outcome b { color: var(--white); }
 
 /* ---------- 27b. Work showcase - screen carousel ------------------------ */
 /* An example-build card whose head is a gallery of real screens. The track is
@@ -1889,7 +1826,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .btn-row { flex-direction: column; align-items: stretch; }
   .footer-cols { grid-template-columns: 1fr; }
   .trust-row { gap: var(--space-4); flex-direction: column; }
-  .case-scope > div { grid-template-columns: 1fr; gap: var(--space-2); }
   .work-meta > div  { grid-template-columns: 1fr; gap: var(--space-2); }
   /* the caption is the first thing to go when the bar runs out of room */
   .work-caption { display: none; }
@@ -2016,7 +1952,6 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .pain p  { color: var(--text-on-light-muted); }
 .pain .n { color: var(--navy); }
 .pain:hover { background: var(--paper); }
-
 
 /* ---------- Hero photograph ---------------------------------------------
    The picture carries pure white in places, the window behind the desks, and
