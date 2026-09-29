@@ -135,6 +135,62 @@ HEAD = """<link rel="canonical" href="{url}">
 <link rel="stylesheet" href="assets/css/ail3.css">"""
 
 # tags the generator owns; each must end up on a page exactly once
+BRITISH = re.compile(r"\b(?:"
+    r"colours?"
+    r"|behaviour"
+    r"|favour"
+    r"|labour"
+    r"|honour"
+    r"|rumour"
+    r"|neighbour"
+    r"|centre"
+    r"|metres?"
+    r"|litres?"
+    r"|theatre"
+    r"|fibre"
+    r"|licence"
+    r"|defence"
+    r"|offence"
+    r"|pretence"
+    r"|programmes?"
+    r"|travelled"
+    r"|cancelled"
+    r"|cancelling"
+    r"|modelling"
+    r"|labelled"
+    r"|totalled"
+    r"|fuelled"
+    r"|marvellous"
+    r"|fulfil"
+    r"|enrol"
+    r"|instil"
+    r"|skilful"
+    r"|whilst"
+    r"|amongst"
+    r"|learnt"
+    r"|spelt"
+    r"|dreamt"
+    r"|enquir(?:e|es|ed|ing|y|ies)"
+    r"|grey"
+    r"|cheque"
+    r"|aluminium"
+    r"|organis(?:e|es|ed|ing|ation|ations)"
+    r"|recognis(?:e|es|ed|ing|ation|ations)"
+    r"|categoris(?:e|es|ed|ing|ation|ations)"
+    r"|optimis(?:e|es|ed|ing|ation|ations)"
+    r"|customis(?:e|es|ed|ing|ation|ations)"
+    r"|prioritis(?:e|es|ed|ing|ation|ations)"
+    r"|standardis(?:e|es|ed|ing|ation|ations)"
+    r"|minimis(?:e|es|ed|ing|ation|ations)"
+    r"|maximis(?:e|es|ed|ing|ation|ations)"
+    r"|utilis(?:e|es|ed|ing|ation|ations)"
+    r"|summaris(?:e|es|ed|ing|ation|ations)"
+    r"|apologis(?:e|es|ed|ing|ation|ations)"
+    r"|emphasis(?:e|es|ed|ing|ation|ations)"
+    r"|specialis(?:e|es|ed|ing|ation|ations)"
+    r"|analys(?:e|es|ed|ing|ation|ations)"
+    r")\b", re.I)
+
 SINGLETONS = [
     'rel="canonical"', 'name="robots"', 'name="author"', 'rel="manifest"',
     'name="theme-color"', 'property="og:url"', 'property="og:title"',
@@ -160,7 +216,7 @@ def examples_node(doc, url):
     """Scoped per card: one dot-all match across the page swallows everything
     between the first heading and the first situation paragraph."""
     items = []
-    for card in re.findall(r'<article class="case-card">(.*?)</article>', doc, re.S):
+    for card in re.findall(r'<article class="case-card[^"]*">(.*?)</article>', doc, re.S):
         n = re.search(r"<h3>(.*?)</h3>", card, re.S)
         d = re.search(r'<p class="case-situation">(.*?)</p>', card, re.S)
         if n and d:
@@ -169,8 +225,8 @@ def examples_node(doc, url):
     if not items:
         return None
     return {"@type": "ItemList", "@id": f"{url}#examples", "name": "Example builds",
-            "description": ("Worked examples showing how an AI L3 Tech build is scoped. "
-                            "These are illustrative, not client case studies."),
+            "description": ("Recent AI L3 Tech projects, anonymized. Client names, data "
+                            "and locations are changed; the screens are the ones we designed."),
             "numberOfItems": len(items), "itemListElement": items}
 
 
@@ -285,6 +341,14 @@ def main():
         # them and fell back to Arial.
         if "fonts.googleapis.com/css2" not in doc:
             problems.append(f"{page.name}: no font stylesheet, it will fall back")
+
+        # US English, asked for by name. "colour-coded" and "re-totalled" both
+        # reached a shipped page inside alt text, where nothing was reading.
+        # \b on both ends matters: it keeps aria-labelledby out of "labelled".
+        for hit in re.finditer(BRITISH, doc):
+            line = doc[:hit.start()].count(chr(10)) + 1
+            problems.append(f"{page.name}:{line}: British spelling "
+                            f"'{hit.group(0)}'; the site is US English")
 
         # House style, from the README: never "firm". It reached the keyword
         # array once already and nothing caught it, so the build checks now.

@@ -1531,6 +1531,161 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .band-dark .case-outcome b,
 .band-deep .case-outcome b { color: var(--white); }
 
+/* ---------- 27b. Work showcase - screen carousel ------------------------ */
+/* An example-build card whose head is a gallery of real screens. The track is
+   the only thing that moves, and it holds nothing but images: a transform makes
+   a containing block, so anything positioned that sat inside it would re-anchor
+   to the moving element and flicker. The dots and the caption stay outside it. */
+.work-card {
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+}
+.work-shots {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line-light);
+}
+.work-viewport {
+  overflow: hidden;
+  /* Reserved here, so the row never collapses while the images decode. */
+  aspect-ratio: 16 / 10;
+}
+.work-track {
+  display: flex;
+  height: 100%;
+  transition: transform .62s var(--ease);
+}
+.work-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  margin: 0;
+}
+.work-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+
+/* the bar under the gallery: pause, what you are looking at, and the dots */
+.work-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: .5rem .75rem .5rem .5rem;
+  border-top: 1px solid var(--line-light);
+  background: var(--white);
+}
+.work-pause {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: var(--text-on-light-muted);
+  cursor: pointer;
+}
+.work-pause:hover { color: var(--text-on-light); border-color: var(--line-light); }
+.work-pause svg { width: 13px; height: 13px; fill: currentColor; }
+.work-pause .ico-play { display: none; }
+.work-pause[aria-pressed="true"] .ico-play { display: block; }
+.work-pause[aria-pressed="true"] .ico-pause { display: none; }
+
+.work-caption {
+  margin: 0;
+  min-width: 0;
+  font-size: .75rem;
+  letter-spacing: .02em;
+  color: var(--text-on-light-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.work-dots {
+  margin-left: auto;
+  display: flex;
+  /* 8px clear between adjacent targets, which is the crowding floor the mobile
+     audit enforces: two 28px dots 2px apart are each hittable and still wrong. */
+  gap: .5rem;
+  flex: none;
+}
+/* 28px of hit area around a small mark, so the target clears 24x24 */
+.work-dot {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.work-dot::before {
+  content: "";
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--edge-control-light);
+  transition: width .3s var(--ease), background-color .3s var(--ease);
+}
+/* current reads by shape as well as colour, not colour alone */
+.work-dot[aria-current="true"]::before {
+  width: 20px;
+  background: var(--navy);
+}
+.work-dot:hover::before { background: var(--text-on-light); }
+
+.work-text {
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.work-meta {
+  margin: 0;
+  border-top: 1px solid var(--line-light);
+}
+.work-meta > div {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--line-light);
+}
+.work-meta dt {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-on-light-faint);
+  padding-top: .1rem;
+}
+.work-meta dd {
+  margin: 0;
+  font-size: .875rem;
+  line-height: 1.6;
+  color: var(--text-on-light-muted);
+}
+
+/* A finger needs the full 44px. A mouse does not, and at 28px the dot row stays
+   a page indicator rather than a toolbar, so the size is spent only where it
+   buys something. The bar's padding tightens to keep all of it inside 320px. */
+@media (hover: none), (max-width: 560px) {
+  .work-bar { padding: .25rem .375rem; gap: var(--space-2); }
+  .work-dot,
+  .work-pause { width: 44px; height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-track { transition: none; }
+  .work-dot::before { transition: none; }
+}
+
 /* ---------- 28. Booking embed ------------------------------------------ */
 /* The calendar is a third-party iframe. form_embed.js sets its height once the
    widget reports its size, so the min-height is only there to stop the page
@@ -1691,6 +1846,9 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .footer-cols { grid-template-columns: 1fr; }
   .trust-row { gap: var(--space-4); flex-direction: column; }
   .case-scope > div { grid-template-columns: 1fr; gap: var(--space-2); }
+  .work-meta > div  { grid-template-columns: 1fr; gap: var(--space-2); }
+  /* the caption is the first thing to go when the bar runs out of room */
+  .work-caption { display: none; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .vtabs { flex-direction: column; align-items: stretch; }
   .vtab {

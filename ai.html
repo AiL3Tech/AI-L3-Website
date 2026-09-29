@@ -37,7 +37,7 @@
 <meta name="twitter:description" content="We build Claude AI into how your business runs: your files, templates, and follow-up. Implementation, app development, and custom AI apps.">
 <meta name="twitter:image" content="https://ail3tech.com/assets/img/og-claude.png">
 
-<link rel="stylesheet" href="assets/css/ail3.css?v=b0bdead42c">
+<link rel="stylesheet" href="assets/css/ail3.css?v=7b8998d523">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -163,32 +163,32 @@
       "@type": "ItemList",
       "@id": "https://ail3tech.com/ai#examples",
       "name": "Example builds",
-      "description": "Worked examples showing how an AI L3 Tech build is scoped. These are illustrative, not client case studies.",
+      "description": "Recent AI L3 Tech projects, anonymized. Client names, data and locations are changed; the screens are the ones we designed.",
       "numberOfItems": 4,
       "itemListElement": [
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "Intake that doesn’t wait for Monday",
-          "description": "A small litigation practice where web and phone inquiries sit in a shared inbox until someone has time. Conflict checks are manual, and promising leads go cold."
+          "name": "Every record read, every date checked",
+          "description": "Reads every medical record and court order on a matter, then surfaces the contradictions between providers, the records that were never chased, and the dates that passed with nothing filed — each one with the letter already drafted."
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "The document chase, automated",
-          "description": "A tax and bookkeeping practice spends busy season emailing clients for missing statements and tracking who sent what in a spreadsheet."
+          "name": "A whole filing practice on one screen",
+          "description": "Researches a property across seven city systems, flags what would block a permit before any time is spent on it, drafts the proposal from that research, and pre-fills the application straight off the plan set."
         },
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Seller updates that write themselves",
-          "description": "An agent with a dozen active listings rebuilds the same weekly seller update by hand from showing feedback, portal views, and market activity."
+          "name": "Supplier invoices, keyed once",
+          "description": "Reads every supplier invoice out of the shared mailbox, matches it to the vendor, job, purchase order and cost code, and enters it in the accounting system — but only after a person has approved it."
         },
         {
           "@type": "ListItem",
           "position": 4,
-          "name": "Renewals that don’t slip",
-          "description": "A landscaping company with seasonal maintenance contracts renews them by memory each winter, and some customers drift to competitors before anyone calls."
+          "name": "What we know about a client, in one place",
+          "description": "Gives every client a single record holding the decisions, the workarounds and the handovers, so what a departing engineer knew does not leave with them."
         }
       ]
     },
@@ -438,70 +438,274 @@
     <div class="sec-head reveal">
       <div>
         <p class="section-tag">04 / Example builds</p>
-        <h2 class="display-2">What a build<br>actually looks like.</h2>
+        <h2 class="display-2">Recent builds,<br>with the names removed.</h2>
       </div>
-      <p class="lead">These are not client stories. They are worked examples, scoped the way we scope real work, so you can see the shape of a build before you commission one.</p>
+      <p class="lead">Four projects for real companies. Client names, data and locations have been changed. The screens are the ones we designed.</p>
     </div>
 
     <div class="case-grid reveal-stagger">
-      <article class="case-card">
-        <p class="case-badge">Example build</p>
-        <p class="case-caption">How we&rsquo;d set this up for a company like yours</p>
-        <h3>Intake that doesn&rsquo;t wait for Monday</h3>
-        <p class="case-situation">A small litigation practice where web and phone inquiries sit in a shared inbox until someone has time. Conflict checks are manual, and promising leads go cold.</p>
-        <dl class="case-scope">
-          <div><dt>Trigger</dt><dd>A new inquiry arrives through the web form, email, or a call transcript.</dd></div>
-          <div><dt>Source</dt><dd>The inquiry, the practice&rsquo;s matter list, and its intake criteria.</dd></div>
-          <div><dt>Action</dt><dd>Claude pulls out the parties, matter type, and key dates, flags possible conflicts against existing matters, and drafts a first response in the practice&rsquo;s voice.</dd></div>
-          <div><dt>Output</dt><dd>An intake summary with a conflict flag, plus a draft reply ready for attorney review.</dd></div>
-          <div><dt>Who reads it</dt><dd>The intake attorney. Nothing goes out without them.</dd></div>
-        </dl>
-        <p class="case-outcome"><b>Designed to</b>get same-day responses to every inquiry and give the practice a consistent conflict screen before anyone spends time on a call.</p>
+      <article class="case-card work-card">
+        <div class="work-shots" data-carousel role="group" aria-roledescription="carousel"
+             aria-label="Screens from this build">
+          <div class="work-viewport">
+            <div class="work-track">
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="1 of 4: Monday briefing" data-label="Monday briefing">
+                <img src="assets/img/work/legal-1-1200.webp"
+                     srcset="assets/img/work/legal-1-700.webp 700w, assets/img/work/legal-1-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A Monday briefing listing the six matters that need the attorney this week, each with what happened, what was missed and a drafted response ready to review.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="2 of 4: Medical records, read end to end" data-label="Medical records, read end to end">
+                <img src="assets/img/work/legal-2-1200.webp"
+                     srcset="assets/img/work/legal-2-700.webp 700w, assets/img/work/legal-2-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A treatment timeline built from every provider&rsquo;s records, with the gaps and the missing documents called out beside it.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="3 of 4: The matter workspace" data-label="The matter workspace">
+                <img src="assets/img/work/legal-3-1200.webp"
+                     srcset="assets/img/work/legal-3-700.webp 700w, assets/img/work/legal-3-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A dashboard for the whole practice: active matters, what needs the attorney, the day&rsquo;s calendar and the statutes running out.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="4 of 4: Settlement and liens" data-label="Settlement and liens">
+                <img src="assets/img/work/legal-4-1200.webp"
+                     srcset="assets/img/work/legal-4-700.webp 700w, assets/img/work/legal-4-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A settlement view showing the gross, every lien against it and what the client actually receives.">
+              </div>
+            </div>
+          </div>
+          <div class="work-bar">
+            <button class="work-pause" type="button" aria-pressed="false"
+                    aria-label="Pause this screen gallery"><svg class="ico-pause" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><rect x="2" y="1.5" width="3" height="9" rx="1"/><rect x="7" y="1.5" width="3" height="9" rx="1"/></svg><svg class="ico-play" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 1.5 10.5 6 3 10.5z"/></svg></button>
+            <p class="work-caption" aria-hidden="true">Monday briefing</p>
+            <div class="work-dots">
+              <button class="work-dot" type="button" aria-current="true" tabindex="0"
+                      aria-label="Show screen 1 of 4: Monday briefing"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 2 of 4: Medical records, read end to end"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 3 of 4: The matter workspace"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 4 of 4: Settlement and liens"></button>
+            </div>
+          </div>
+        </div>
+        <div class="work-text">
+          <p class="case-badge">Legal</p>
+          <h3>Every record read, every date checked</h3>
+          <p class="case-situation">Reads every medical record and court order on a matter, then surfaces the contradictions between providers, the records that were never chased, and the dates that passed with nothing filed &mdash; each one with the letter already drafted.</p>
+          <dl class="work-meta">
+            <div><dt>Client</dt><dd>A personal injury law practice</dd></div>
+            <div><dt>Business</dt><dd>Bilingual, two attorneys, 174 open matters</dd></div>
+          </dl>
+        </div>
       </article>
-      <article class="case-card">
-        <p class="case-badge">Example build</p>
-        <p class="case-caption">How we&rsquo;d set this up for a company like yours</p>
-        <h3>The document chase, automated</h3>
-        <p class="case-situation">A tax and bookkeeping practice spends busy season emailing clients for missing statements and tracking who sent what in a spreadsheet.</p>
-        <dl class="case-scope">
-          <div><dt>Trigger</dt><dd>Weekly during busy season, and whenever a client uploads documents.</dd></div>
-          <div><dt>Source</dt><dd>The engagement checklist per client and the documents actually received.</dd></div>
-          <div><dt>Action</dt><dd>Claude compares what&rsquo;s in against what&rsquo;s required, identifies gaps, and drafts a personalized follow-up for each client.</dd></div>
-          <div><dt>Output</dt><dd>A status board showing who&rsquo;s complete and who&rsquo;s missing what, plus queued reminder emails.</dd></div>
-          <div><dt>Who reads it</dt><dd>The staff accountant, who approves the reminders in one pass.</dd></div>
-        </dl>
-        <p class="case-outcome"><b>Designed to</b>take the document chase off senior staff and surface stalled engagements before the deadline, not after.</p>
+      <article class="case-card work-card">
+        <div class="work-shots" data-carousel role="group" aria-roledescription="carousel"
+             aria-label="Screens from this build">
+          <div class="work-viewport">
+            <div class="work-track">
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="1 of 4: Today" data-label="Today">
+                <img src="assets/img/work/filing-1-1200.webp"
+                     srcset="assets/img/work/filing-1-700.webp 700w, assets/img/work/filing-1-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A daily dashboard: what needs the filer today, what is sitting with the city, capacity against target and every job by stage.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="2 of 4: Property research, sourced" data-label="Property research, sourced">
+                <img src="assets/img/work/filing-2-1200.webp"
+                     srcset="assets/img/work/filing-2-700.webp 700w, assets/img/work/filing-2-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A property research screen checking seven city systems, with blocking red flags at the top and every finding linked back to the record it came from.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="3 of 4: The filing, pre-filled" data-label="The filing, pre-filled">
+                <img src="assets/img/work/filing-3-1200.webp"
+                     srcset="assets/img/work/filing-3-700.webp 700w, assets/img/work/filing-3-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A permit application with eighteen fields pre-filled from the plan set, each one linked to the region of the drawing it was read from.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="4 of 4: The drafted proposal" data-label="The drafted proposal">
+                <img src="assets/img/work/filing-4-1200.webp"
+                     srcset="assets/img/work/filing-4-700.webp 700w, assets/img/work/filing-4-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A client proposal drafted from the research and the price list, with fee lines that can be toggled and re-totaled before it goes out.">
+              </div>
+            </div>
+          </div>
+          <div class="work-bar">
+            <button class="work-pause" type="button" aria-pressed="false"
+                    aria-label="Pause this screen gallery"><svg class="ico-pause" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><rect x="2" y="1.5" width="3" height="9" rx="1"/><rect x="7" y="1.5" width="3" height="9" rx="1"/></svg><svg class="ico-play" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 1.5 10.5 6 3 10.5z"/></svg></button>
+            <p class="work-caption" aria-hidden="true">Today</p>
+            <div class="work-dots">
+              <button class="work-dot" type="button" aria-current="true" tabindex="0"
+                      aria-label="Show screen 1 of 4: Today"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 2 of 4: Property research, sourced"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 3 of 4: The filing, pre-filled"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 4 of 4: The drafted proposal"></button>
+            </div>
+          </div>
+        </div>
+        <div class="work-text">
+          <p class="case-badge">Construction compliance</p>
+          <h3>A whole filing practice on one screen</h3>
+          <p class="case-situation">Researches a property across seven city systems, flags what would block a permit before any time is spent on it, drafts the proposal from that research, and pre-fills the application straight off the plan set.</p>
+          <dl class="work-meta">
+            <div><dt>Client</dt><dd>A building-code filing representative</dd></div>
+            <div><dt>Business</dt><dd>Files construction permits with the city for owners and architects</dd></div>
+          </dl>
+        </div>
       </article>
-      <article class="case-card">
-        <p class="case-badge">Example build</p>
-        <p class="case-caption">How we&rsquo;d set this up for a company like yours</p>
-        <h3>Seller updates that write themselves</h3>
-        <p class="case-situation">An agent with a dozen active listings rebuilds the same weekly seller update by hand from showing feedback, portal views, and market activity.</p>
-        <dl class="case-scope">
-          <div><dt>Trigger</dt><dd>Every Friday for each active listing.</dd></div>
-          <div><dt>Source</dt><dd>Showing feedback, listing activity, and new comparable sales.</dd></div>
-          <div><dt>Action</dt><dd>Claude summarizes the week, highlights patterns in buyer feedback, and drafts talking points on pricing or presentation.</dd></div>
-          <div><dt>Output</dt><dd>A seller update in the agent&rsquo;s voice, plus a short internal note flagging listings that may need a price conversation.</dd></div>
-          <div><dt>Who reads it</dt><dd>The agent, who reviews and sends.</dd></div>
-        </dl>
-        <p class="case-outcome"><b>Designed to</b>keep weekly updates consistent across every listing and hand the agent better material for the hard conversations.</p>
+      <article class="case-card work-card">
+        <div class="work-shots" data-carousel role="group" aria-roledescription="carousel"
+             aria-label="Screens from this build">
+          <div class="work-viewport">
+            <div class="work-track">
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="1 of 4: The approval screen" data-label="The approval screen">
+                <img src="assets/img/work/ap-1-1200.webp"
+                     srcset="assets/img/work/ap-1-700.webp 700w, assets/img/work/ap-1-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="An invoice shown beside its PDF, with all nine read fields matched against the purchase order and a single button to approve and post it.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="2 of 4: The invoice queue" data-label="The invoice queue">
+                <img src="assets/img/work/ap-2-1200.webp"
+                     srcset="assets/img/work/ap-2-700.webp 700w, assets/img/work/ap-2-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="The day&rsquo;s invoice queue: what is matched and ready, what needs a decision and the total value waiting.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="3 of 4: What needs a decision" data-label="What needs a decision">
+                <img src="assets/img/work/ap-3-1200.webp"
+                     srcset="assets/img/work/ap-3-700.webp 700w, assets/img/work/ap-3-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="Three invoices held back before posting: changed bank details, a possible duplicate, and a supplier with no vendor record yet.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="4 of 4: Posted to the ledger" data-label="Posted to the ledger">
+                <img src="assets/img/work/ap-4-1200.webp"
+                     srcset="assets/img/work/ap-4-700.webp 700w, assets/img/work/ap-4-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A log of everything entered today, each with its ledger reference, who approved it and where the document was filed.">
+              </div>
+            </div>
+          </div>
+          <div class="work-bar">
+            <button class="work-pause" type="button" aria-pressed="false"
+                    aria-label="Pause this screen gallery"><svg class="ico-pause" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><rect x="2" y="1.5" width="3" height="9" rx="1"/><rect x="7" y="1.5" width="3" height="9" rx="1"/></svg><svg class="ico-play" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 1.5 10.5 6 3 10.5z"/></svg></button>
+            <p class="work-caption" aria-hidden="true">The approval screen</p>
+            <div class="work-dots">
+              <button class="work-dot" type="button" aria-current="true" tabindex="0"
+                      aria-label="Show screen 1 of 4: The approval screen"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 2 of 4: The invoice queue"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 3 of 4: What needs a decision"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 4 of 4: Posted to the ledger"></button>
+            </div>
+          </div>
+        </div>
+        <div class="work-text">
+          <p class="case-badge">Construction finance</p>
+          <h3>Supplier invoices, keyed once</h3>
+          <p class="case-situation">Reads every supplier invoice out of the shared mailbox, matches it to the vendor, job, purchase order and cost code, and enters it in the accounting system &mdash; but only after a person has approved it.</p>
+          <dl class="work-meta">
+            <div><dt>Client</dt><dd>A construction group</dd></div>
+            <div><dt>Business</dt><dd>Five companies running on the same accounting system</dd></div>
+          </dl>
+        </div>
       </article>
-      <article class="case-card">
-        <p class="case-badge">Example build</p>
-        <p class="case-caption">How we&rsquo;d set this up for a company like yours</p>
-        <h3>Renewals that don&rsquo;t slip</h3>
-        <p class="case-situation">A landscaping company with seasonal maintenance contracts renews them by memory each winter, and some customers drift to competitors before anyone calls.</p>
-        <dl class="case-scope">
-          <div><dt>Trigger</dt><dd>60 days before each contract ends.</dd></div>
-          <div><dt>Source</dt><dd>The customer list and last season&rsquo;s services.</dd></div>
-          <div><dt>Action</dt><dd>Claude drafts a personalized renewal with any suggested upgrades.</dd></div>
-          <div><dt>Output</dt><dd>Renewal emails queued, plus a list of customers who haven&rsquo;t responded.</dd></div>
-          <div><dt>Who reads it</dt><dd>The office manager, who approves and sends.</dd></div>
-        </dl>
-        <p class="case-outcome"><b>Designed to</b>lock in next season&rsquo;s revenue before competitors start calling.</p>
+      <article class="case-card work-card">
+        <div class="work-shots" data-carousel role="group" aria-roledescription="carousel"
+             aria-label="Screens from this build">
+          <div class="work-viewport">
+            <div class="work-track">
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="1 of 4: The client dashboard" data-label="The client dashboard">
+                <img src="assets/img/work/docs-1-1200.webp"
+                     srcset="assets/img/work/docs-1-700.webp 700w, assets/img/work/docs-1-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A single client record: the description, the main contact, the team, and every document color-coded by type with the pinned ones on top.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="2 of 4: The client list" data-label="The client list">
+                <img src="assets/img/work/docs-2-1200.webp"
+                     srcset="assets/img/work/docs-2-700.webp 700w, assets/img/work/docs-2-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A searchable client list showing industry, type, document count, who is on the account and when it last moved.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="3 of 4: Inside a document" data-label="Inside a document">
+                <img src="assets/img/work/docs-3-1200.webp"
+                     srcset="assets/img/work/docs-3-700.webp 700w, assets/img/work/docs-3-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="A document open for editing, with its type, its action items, a review date and the people tagged on it.">
+              </div>
+              <div class="work-slide" role="group" aria-roledescription="slide"
+                   aria-label="4 of 4: Where it lives" data-label="Where it lives">
+                <img src="assets/img/work/docs-4-1200.webp"
+                     srcset="assets/img/work/docs-4-700.webp 700w, assets/img/work/docs-4-1200.webp 1200w"
+                     sizes="(min-width: 1080px) min(604px, calc((100vw - 4.5rem) / 2)), calc(100vw - 3rem)"
+                     width="1200" height="750" loading="lazy" decoding="async"
+                     alt="Where the documents module sits in the platform, and which roles can read and write to it.">
+              </div>
+            </div>
+          </div>
+          <div class="work-bar">
+            <button class="work-pause" type="button" aria-pressed="false"
+                    aria-label="Pause this screen gallery"><svg class="ico-pause" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><rect x="2" y="1.5" width="3" height="9" rx="1"/><rect x="7" y="1.5" width="3" height="9" rx="1"/></svg><svg class="ico-play" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 1.5 10.5 6 3 10.5z"/></svg></button>
+            <p class="work-caption" aria-hidden="true">The client dashboard</p>
+            <div class="work-dots">
+              <button class="work-dot" type="button" aria-current="true" tabindex="0"
+                      aria-label="Show screen 1 of 4: The client dashboard"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 2 of 4: The client list"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 3 of 4: Inside a document"></button>
+              <button class="work-dot" type="button" tabindex="-1"
+                      aria-label="Show screen 4 of 4: Where it lives"></button>
+            </div>
+          </div>
+        </div>
+        <div class="work-text">
+          <p class="case-badge">Managed services</p>
+          <h3>What we know about a client, in one place</h3>
+          <p class="case-situation">Gives every client a single record holding the decisions, the workarounds and the handovers, so what a departing engineer knew does not leave with them.</p>
+          <dl class="work-meta">
+            <div><dt>Client</dt><dd>AI L3 Tech</dd></div>
+            <div><dt>Business</dt><dd>Our own platform for running managed-service clients</dd></div>
+          </dl>
+        </div>
       </article>
     </div>
-  
+
     <div class="section-cta reveal">
       <a class="btn btn--lime" href="book.html">Book my free AI call <span class="arw" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 12.5 12.5 3.5M6 3.5h6.5v6.5"/></svg></span></a>
     </div>
@@ -613,6 +817,6 @@
   </div>
 </footer>
 
-<script src="assets/js/ail3.js?v=6ee1cf1195"></script>
+<script src="assets/js/ail3.js?v=113fc3b552"></script>
 </body>
 </html>

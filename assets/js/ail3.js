@@ -1,4 +1,4 @@
-/* AI L3 Tech — nav toggle + scroll reveal. No dependencies. */
+/* AI L3 Tech — nav toggle, scroll reveal, work carousels. No dependencies. */
 (function () {
   'use strict';
 
@@ -123,4 +123,135 @@
   }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
 
   Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
+})();
+
+/* ---- Work showcase carousels ---------------------------------------------
+   Galleries of product screens inside the example-build cards. A separate IIFE
+   on purpose: the reveal block above returns early under reduced motion, and
+   these still have to work there - just without the sliding or the autoplay.
+
+   Autoplay stops on hover, on focus, when the card scrolls out of view, when
+   the tab is hidden, and from its own button. 2.2.2 asks for a real control,
+   not only a hover, and any manual move stops it for good so nothing fights
+   the reader. The track is the only thing transformed and it holds nothing but
+   images, so no positioned child can re-anchor to it mid-animation.         */
+(function () {
+  'use strict';
+
+  var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var DELAY = 5200;
+  var carousels = document.querySelectorAll('[data-carousel]');
+  if (!carousels.length) return;
+
+  Array.prototype.forEach.call(carousels, function (root) {
+    var track = root.querySelector('.work-track');
+    var slides = Array.prototype.slice.call(root.querySelectorAll('.work-slide'));
+    var dots = Array.prototype.slice.call(root.querySelectorAll('.work-dot'));
+    var caption = root.querySelector('.work-caption');
+    var toggle = root.querySelector('.work-pause');
+    if (!track || slides.length < 2 || dots.length !== slides.length) return;
+
+    var at = 0, timer = null, seen = false, held = false, stopped = false, primed = false;
+
+    /* Off-screen cards should cost nothing, but a slide that is still lazy when
+       it slides in arrives blank. So the moment a card is on screen, drop the
+       lazy flag on all of its images and let them fetch ahead of their turn. */
+    function prime() {
+      if (primed) return;
+      primed = true;
+      slides.forEach(function (s) {
+        var img = s.querySelector('img');
+        if (img) img.removeAttribute('loading');
+      });
+    }
+
+    function render() {
+      track.style.transform = 'translateX(' + (-at * 100) + '%)';
+      for (var k = 0; k < dots.length; k++) {
+        if (k === at) { dots[k].setAttribute('aria-current', 'true'); }
+        else { dots[k].removeAttribute('aria-current'); }
+        dots[k].tabIndex = k === at ? 0 : -1;
+      }
+      if (caption) caption.textContent = slides[at].getAttribute('data-label') || '';
+    }
+
+    function go(n) {
+      at = (n + slides.length) % slides.length;
+      render();
+    }
+
+    function play() {
+      if (timer || stopped || held || !seen || motion.matches) return;
+      timer = window.setInterval(function () { go(at + 1); }, DELAY);
+    }
+    function pause() {
+      if (timer) { window.clearInterval(timer); timer = null; }
+    }
+    function setStopped(v) {
+      stopped = v;
+      if (toggle) toggle.setAttribute('aria-pressed', v ? 'true' : 'false');
+      if (v) { pause(); } else { play(); }
+    }
+
+    /* a deliberate move is a decision to steer it by hand */
+    function manual(n) { setStopped(true); go(n); }
+
+    dots.forEach(function (dot, k) {
+      dot.addEventListener('click', function () { manual(k); });
+      dot.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        manual(at + d);
+        dots[at].focus();
+      });
+    });
+
+    if (toggle) {
+      toggle.addEventListener('click', function () { setStopped(!stopped); });
+    }
+
+    root.addEventListener('pointerenter', function () { held = true; pause(); });
+    root.addEventListener('pointerleave', function () { held = false; play(); });
+    root.addEventListener('focusin', function () { held = true; pause(); });
+    root.addEventListener('focusout', function () {
+      if (!root.contains(document.activeElement)) { held = false; play(); }
+    });
+
+    /* swipe, for the single-column layout where these are thumb-sized */
+    var x0 = null;
+    root.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
+      x0 = e.clientX;
+    });
+    root.addEventListener('pointerup', function (e) {
+      if (x0 === null) return;
+      var dx = e.clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 40) { manual(at + (dx < 0 ? 1 : -1)); }
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { pause(); } else { play(); }
+    });
+
+    motion.addEventListener('change', function () {
+      if (motion.matches) { pause(); } else { play(); }
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          seen = entry.isIntersecting;
+          if (seen) { prime(); play(); } else { pause(); }
+        });
+      }, { threshold: 0.35 }).observe(root);
+    } else {
+      seen = true;
+      prime();
+    }
+
+    render();
+    play();
+  });
 })();
