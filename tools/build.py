@@ -62,7 +62,7 @@ ORG = {
     "logo": {"@type": "ImageObject", "url": f"{BASE}/assets/img/og-logo.png", "width": 1200, "height": 630},
     "image": f"{BASE}/assets/img/og-logo.png",
     "email": "info@ail3tech.com",
-    "slogan": "The Tech stuff you don't have time to figure out — handled",
+    "slogan": "The tech you don't have time to figure out. HANDLED.",
     "description": ("AI L3 Tech provides senior engineering in two forms: white-label L3 escalation "
                     "and project delivery for managed service providers, and Claude AI implementation, "
                     "app development and custom AI applications for growing businesses."),
@@ -378,6 +378,14 @@ def main():
             line = doc[:hit.start()].count(chr(10)) + 1
             problems.append(f"{page.name}:{line}: British spelling "
                             f"'{hit.group(0)}'; the site is US English")
+
+        # No em dashes in the copy, asked for by name. They read as a tell,
+        # and every one of them was standing in for a full stop or a comma.
+        for hit in re.finditer("—", doc):
+            line = doc[:hit.start()].count(chr(10)) + 1
+            near = " ".join(doc[max(0, hit.start() - 50):hit.start() + 50].split())
+            problems.append(f"{page.name}:{line}: em dash; use a period or a "
+                            f"comma ...{near}...")
 
         # House style, from the README: never "firm". It reached the keyword
         # array once already and nothing caught it, so the build checks now.

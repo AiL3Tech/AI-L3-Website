@@ -222,14 +222,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    navy itself on a light one. Green stays where the kit puts it: the bullets,
    the small marks and the calls to action. */
 .accent { color: var(--cyan); }
-/* Set in sentence case in the markup and uppercased here on purpose: a screen
-   reader says the word, where literal capitals get spelled out letter by
-   letter. Caps also need the tracking opened back up, since the display sizes
-   are tightened for mixed case. */
-.caps {
-  text-transform: uppercase;
-  letter-spacing: .01em;
-}
+
 .band-light .accent,
 .band-white .accent { color: var(--navy); }
 .muted  { color: var(--text-on-dark-muted); }
@@ -1960,17 +1953,35 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
    a gradient: solid navy under the words, thinning across to let the room
    show. Each tier loads its own file; a phone has no use for a 1920px image.
    -------------------------------------------------------------------------- */
+/* The picture is named in custom properties so the tier rules below are
+   written once and every page that wants a photographic hero only has to say
+   which three files it uses. */
 .hero--photo {
-  background-image: url("../img/hero-image-800.webp");
+  --hero-sm: url("../img/hero-image-800.webp");
+  --hero-md: url("../img/hero-image-1280.webp");
+  --hero-lg: url("../img/hero-image.webp");
+  background-image: var(--hero-sm);
   background-size: cover;
   background-position: 70% center;
   background-repeat: no-repeat;
 }
+/* A control's edge needs 3:1 against what is behind it. Over flat navy the
+   46% white edge measures 3.30; over a photograph, where both the edge and
+   its backdrop lift, it fell to 3.04. Raising the token here keeps the
+   picture and the margin, rather than washing the picture out to save a
+   border. The token exists for exactly this. */
+.hero--photo { --edge-control-dark: rgba(255, 255, 255, .62); }
+
+.hero--photo-ai {
+  --hero-sm: url("../img/hero-ai-800.webp");
+  --hero-md: url("../img/hero-ai-1280.webp");
+  --hero-lg: url("../img/hero-ai.webp");
+}
 @media (min-width: 561px) {
-  .hero--photo { background-image: url("../img/hero-image-1280.webp"); }
+  .hero--photo { background-image: var(--hero-md); }
 }
 @media (min-width: 1281px) {
-  .hero--photo { background-image: url("../img/hero-image.webp"); }
+  .hero--photo { background-image: var(--hero-lg); }
 }
 
 /* the wash. ::before so it sits under .hero > .wrap, which is positioned */
