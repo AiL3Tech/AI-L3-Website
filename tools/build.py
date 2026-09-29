@@ -27,8 +27,10 @@ Facts asserted at the end, because each has been wrong at least once:
   - every FAQ and ItemList entry in the schema is visible text on the page
   - the JSON-LD parses
 """
+import datetime
 import hashlib
 import html
+import subprocess
 import json
 import pathlib
 import re
@@ -42,7 +44,7 @@ ASSETS = ("assets/css/ail3.css", "assets/js/ail3.js")
 # page -> (clean path, social card, breadcrumb label, kind)
 PAGES = {
     "index":                     ("/",                          "og-home",       None,                       "home"),
-    "msp":                       ("/msp",                       "og-home",       "For MSPs",                 "msp"),
+    "msp":                       ("/msp",                       "og-msp",        "For MSPs",                 "msp"),
     "ai":                        ("/ai",                        "og-claude",     "For Businesses",           "ai"),
     "escalation-support":        ("/escalation-support",        "og-escalation", "MSP Escalation Support",   "escalation"),
     "claude-launch-program":     ("/claude-launch-program",     "og-claude",     "Claude Launch Program",    "claude"),
@@ -114,7 +116,7 @@ HEAD = """<link rel="canonical" href="{url}">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#07111D">
+<meta name="theme-color" content="#1F4480">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI L3 Tech">
@@ -125,7 +127,7 @@ HEAD = """<link rel="canonical" href="{url}">
 <meta property="og:image" content="{img}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AI L3 Tech">
+<meta property="og:image:alt" content="{alt}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
@@ -190,6 +192,17 @@ BRITISH = re.compile(r"\b(?:"
     r"|specialis(?:e|es|ed|ing|ation|ations)"
     r"|analys(?:e|es|ed|ing|ation|ations)"
     r")\b", re.I)
+
+# What is printed on each social card, for og:image:alt. A shared link is
+# often the first thing anyone sees, and "AI L3 Tech" told a screen reader
+# nothing about it.
+CARD_ALT = {
+    "og-home":       "AI L3 Tech. The tech you don't have time to figure out. Handled.",
+    "og-msp":        "AI L3 Tech. Stop being your team's L3.",
+    "og-escalation": "AI L3 Tech. The hard tickets stop here.",
+    "og-claude":     "AI L3 Tech. AI is here. Don't get left behind.",
+    "og-logo":       "AI L3 Tech. Senior engineering, on retainer.",
+}
 
 SINGLETONS = [
     'rel="canonical"', 'name="robots"', 'name="author"', 'rel="manifest"',
@@ -273,6 +286,39 @@ def build_graph(doc, url, img, title, desc, label, kind):
     return graph
 
 
+def page_lastmod(name):
+    """The date the page last changed, from git. A build date would tell a
+    crawler every page changed every time anything was rebuilt."""
+    try:
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", f"{name}.html"],
+                             cwd=ROOT, capture_output=True, text=True, timeout=20)
+        d = out.stdout.strip()
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", d):
+            return d
+    except Exception:
+        pass
+    return datetime.date.today().isoformat()
+
+
+def write_sitemap():
+    """Generated from PAGES so a new page cannot be forgotten, and a removed
+    one cannot linger as a 404 in the index."""
+    freq = {"home": ("weekly", "1.0"), "msp": ("weekly", "0.9"), "ai": ("weekly", "0.9"),
+            "escalation": ("weekly", "0.8"), "claude": ("weekly", "0.8"),
+            "book": ("monthly", "0.7"), "legal": ("yearly", "0.3")}
+    rows = []
+    for name, (path, _card, _label, kind) in PAGES.items():
+        cf, pr = freq.get(kind, ("monthly", "0.5"))
+        rows.append(f"  <url><loc>{BASE}{path}</loc>"
+                    f"<lastmod>{page_lastmod(name)}</lastmod>"
+                    f"<changefreq>{cf}</changefreq><priority>{pr}</priority></url>")
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           + "\n".join(rows) + "\n</urlset>\n")
+    (ROOT / "sitemap.xml").write_text(xml, encoding="utf-8")
+    return len(rows)
+
+
 def font_role_conflicts(css):
     """Selectors handed the mono face and then the display face by a later rule.
 
@@ -308,6 +354,7 @@ def main():
         doc = page.read_text(encoding="utf-8")
         url = BASE + path
         img = f"{BASE}/assets/img/{card}.png"
+        alt = CARD_ALT.get(card, "AI L3 Tech")
         title = html.unescape(re.search(r"<title>(.*?)</title>", doc, re.S).group(1)).strip()
         desc = re.search(r'name="description" content="([^"]*)"', doc).group(1)
 
@@ -321,7 +368,8 @@ def main():
         ld = json.dumps({"@context": "https://schema.org", "@graph": graph},
                         indent=2, ensure_ascii=False)
         head = (authored
-                + HEAD.format(url=url, title=html.escape(title, quote=True), desc=desc, img=img)
+                + HEAD.format(url=url, title=html.escape(title, quote=True), desc=desc, img=img,
+                              alt=html.escape(alt, quote=True))
                 + f'\n<script type="application/ld+json">\n{ld}\n</script>\n')
 
         open_at = doc.index("<head>") + len("<head>")
@@ -331,6 +379,10 @@ def main():
         types = sorted({t for n in graph for t in
                         ([n["@type"]] if isinstance(n["@type"], str) else n["@type"])})
         print(f"  {name:26s} {len(graph)} nodes  [{', '.join(types)}]")
+
+    n = write_sitemap()
+    print("sitemap")
+    print(f"  {n} urls, lastmod from git")
 
     # ---- 2. stamp the assets --------------------------------------------
     print("stamps")
@@ -386,6 +438,14 @@ def main():
             near = " ".join(doc[max(0, hit.start() - 50):hit.start() + 50].split())
             problems.append(f"{page.name}:{line}: em dash; use a period or a "
                             f"comma ...{near}...")
+
+        # The theme colour is painted around the page on a phone, so an old
+        # one is visible chrome, not metadata. 404 is not generated from PAGES
+        # and kept the pre-brand near-black long after everything else moved.
+        for m in re.finditer(r'name="theme-color" content="([^"]*)"', doc):
+            if m.group(1).upper() != "#1F4480":
+                problems.append(f"{page.name}: theme-color is {m.group(1)}, "
+                                f"expected the brand navy #1F4480")
 
         # House style, from the README: never "firm". It reached the keyword
         # array once already and nothing caught it, so the build checks now.
