@@ -7,10 +7,40 @@
   var links = document.getElementById('nav-links');
 
   if (toggle && links) {
+    /* Holding the reading position across the lock. Pinning the body is what
+       stops the page scrolling behind the drawer, but a pinned body has no
+       scroll of its own, so the offset has to be carried in top and handed
+       back on close, or the visitor reopens the page somewhere else. */
+    var lockedAt = 0;
+
+    function lockScroll() {
+      lockedAt = window.scrollY || window.pageYOffset || 0;
+      document.body.style.top = (-lockedAt) + 'px';
+      document.body.classList.add('nav-open');
+    }
+
+    function unlockScroll() {
+      if (!document.body.classList.contains('nav-open')) { return; }
+      document.body.classList.remove('nav-open');
+      document.body.style.top = '';
+      /* the page scrolls smoothly by default, and putting someone back where
+         they were is not a journey they should watch */
+      var de = document.documentElement, prev = de.style.scrollBehavior;
+      de.style.scrollBehavior = 'auto';
+      window.scrollTo(0, lockedAt);
+      de.style.scrollBehavior = prev;
+    }
+
+    function openNav() {
+      toggle.setAttribute('aria-expanded', 'true');
+      links.classList.add('is-open');
+      lockScroll();
+    }
+
     function closeNav(refocus) {
       toggle.setAttribute('aria-expanded', 'false');
       links.classList.remove('is-open');
-      document.body.classList.remove('nav-open');
+      unlockScroll();
       if (refocus) { toggle.focus(); }
     }
 
@@ -27,10 +57,8 @@
     }
 
     toggle.addEventListener('click', function () {
-      var open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      links.classList.toggle('is-open', !open);
-      document.body.classList.toggle('nav-open', !open);
+      if (toggle.getAttribute('aria-expanded') === 'true') { closeNav(false); }
+      else { openNav(); }
     });
 
     links.addEventListener('click', function (e) {

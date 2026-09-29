@@ -197,6 +197,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .band-light .card--feature h2, .band-white .card--feature h2 { color: var(--text-on-dark); }
 
 /* ---------- 4. Type primitives ------------------------------------------ */
+/* balance, so a display heading does not drop its last word onto a line of its
+   own. "Get set up." was breaking after "set" and leaving "up." stranded.
+   Browsers without it just wrap as before. */
+.display-1,
+.display-2 { text-wrap: balance; }
 .display-1 { font-size: clamp(2.6rem, 6.2vw, 4.6rem); }
 .display-2 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
 /* The third step. Used by the booking fallback heading, which only appears when
@@ -217,6 +222,14 @@ ul { margin: 0; padding: 0; list-style: none; }
    navy itself on a light one. Green stays where the kit puts it: the bullets,
    the small marks and the calls to action. */
 .accent { color: var(--cyan); }
+/* Set in sentence case in the markup and uppercased here on purpose: a screen
+   reader says the word, where literal capitals get spelled out letter by
+   letter. Caps also need the tracking opened back up, since the display sizes
+   are tightened for mixed case. */
+.caps {
+  text-transform: uppercase;
+  letter-spacing: .01em;
+}
 .band-light .accent,
 .band-white .accent { color: var(--navy); }
 .muted  { color: var(--text-on-dark-muted); }
@@ -1159,6 +1172,17 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   color: var(--text-on-light-muted);
 }
 
+/* A long URL in legal copy is a single unbreakable token. As a grid item with
+   the default min-width: auto it becomes the column's floor, so the track grows
+   past the gutter rather than the word wrapping - which is what pushed the
+   privacy policy 2px wide once text spacing was increased. anywhere, not
+   break-word: only anywhere lowers the min-content size the track is sized on. */
+.legal-body,
+.legal-toc {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 /* ---------- 21. Vertical switcher (Claude Launch Program) ---------------- */
 .vtabs {
   display: flex;
@@ -1820,7 +1844,16 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
     transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
   }
   .nav-links.is-open { transform: none; opacity: 1; visibility: visible; }
-  body.nav-open { overflow: hidden; }
+  /* position: fixed, not overflow alone. overflow: hidden clamps the document
+     scroll position, so opening the menu threw the reader up the page and
+     closing it left them there. The JS holds their place in body's top. */
+  body.nav-open {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
+  }
   .nav-links a:not(.btn) {
     padding-block: var(--space-4);
     border-bottom: 1px solid var(--line-dark);
