@@ -62,7 +62,7 @@ ORG = {
     "logo": {"@type": "ImageObject", "url": f"{BASE}/assets/img/og-logo.png", "width": 1200, "height": 630},
     "image": f"{BASE}/assets/img/og-logo.png",
     "email": "info@ail3tech.com",
-    "slogan": "The Tech stuff you don't have time to figure out — Handled",
+    "slogan": "The Tech stuff you don't have time to figure out — handled",
     "description": ("AI L3 Tech provides senior engineering in two forms: white-label L3 escalation "
                     "and project delivery for managed service providers, and Claude AI implementation, "
                     "app development and custom AI applications for growing businesses."),

@@ -115,7 +115,7 @@ action, an output, and a named person who reads it.
   assessment, then a fixed price for the build once the assessment has
   established real user and integration counts.
 - The company is onboarding its founding cohort of MSP partners.
-- "The Tech stuff you don't have time to figure out — Handled" is the
+- "The Tech stuff you don't have time to figure out — handled" is the
   company's positioning line. On the page the last word is set in caps and
   the brand cyan.
 - Published scenarios are labeled. Real client work carries a result; invented
