@@ -218,26 +218,37 @@
       if (!root.contains(document.activeElement)) { held = false; play(); }
     });
 
-    /* swipe, for the single-column layout where these are thumb-sized */
-    var x0 = null;
+    /* Swipe, for the single-column layout where these are thumb-sized. The
+       gesture only counts as a swipe when it is more sideways than up, so
+       flicking the page along does not shuffle the slides, and pointercancel
+       resets it for the times the browser takes the gesture anyway. */
+    var x0 = null, y0 = null;
     root.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse') return;
       x0 = e.clientX;
+      y0 = e.clientY;
     });
+    root.addEventListener('pointercancel', function () { x0 = y0 = null; });
     root.addEventListener('pointerup', function (e) {
       if (x0 === null) return;
-      var dx = e.clientX - x0;
-      x0 = null;
-      if (Math.abs(dx) > 40) { manual(at + (dx < 0 ? 1 : -1)); }
+      var dx = e.clientX - x0, dy = e.clientY - y0;
+      x0 = y0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        manual(at + (dx < 0 ? 1 : -1));
+      }
     });
 
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) { pause(); } else { play(); }
     });
 
-    motion.addEventListener('change', function () {
-      if (motion.matches) { pause(); } else { play(); }
-    });
+    /* Safari only grew addEventListener on a MediaQueryList in 14. Without the
+       guard the throw takes every carousel on the page down with it. */
+    if (motion.addEventListener) {
+      motion.addEventListener('change', function () {
+        if (motion.matches) { pause(); } else { play(); }
+      });
+    }
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {

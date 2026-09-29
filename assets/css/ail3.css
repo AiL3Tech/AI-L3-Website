@@ -1549,6 +1549,10 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   overflow: hidden;
   /* Reserved here, so the row never collapses while the images decode. */
   aspect-ratio: 16 / 10;
+  /* Vertical panning stays with the browser so the page still scrolls under a
+     finger. Horizontal is ours: without this the browser claims the gesture,
+     fires pointercancel, and the swipe handler never sees a pointerup. */
+  touch-action: pan-y;
 }
 .work-track {
   display: flex;
@@ -1559,6 +1563,13 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   flex: 0 0 100%;
   min-width: 0;
   margin: 0;
+}
+/* <picture> is an inline box by default, so the image's height: 100% would be
+   resolving against an auto-height parent. It happens to land right because the
+   files are already 16:10, but it would break the day one is not. */
+.work-slide picture {
+  display: block;
+  height: 100%;
 }
 .work-slide img {
   display: block;
