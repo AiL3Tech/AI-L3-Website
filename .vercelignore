@@ -1,7 +1,21 @@
-# Build-time sources: the icon and social-card generators read these.
-# They are versioned in git but never need to be served.
-assets/img/source/
+# Nothing here is part of the site. The output directory is the repo root, so
+# anything left in is served: tools/build.py and BRAND-CI.md were both
+# answering 200 in production until this file covered them.
 
-# Repo documentation, not part of the site
+# Credentials. `vercel link` writes an OIDC token into .env.local, and a CLI
+# deploy uploads the working directory rather than the git tree, so .gitignore
+# does not protect this. Without the line below that token becomes a public URL.
+.env
+.env.*
+.vercel
+
+# Build-time sources and tooling: the generators read and write these, the
+# site never serves them.
+assets/img/source/
+tools/
+
+# Repo documentation and working material, not part of the site
 README.md
 DEPLOY.md
+BRAND-CI.md
+Inspiration resources/
