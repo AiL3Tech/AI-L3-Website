@@ -52,7 +52,14 @@ PAGES = {
     "terms-of-use":              ("/terms-of-use",              "og-logo",       "Terms of Use",             "legal"),
     "master-services-agreement": ("/master-services-agreement", "og-logo",       "Master Services Agreement", "legal"),
     "book":                      ("/book",                      "og-logo",       "Book a call",              "book"),
+    "chat-to-us":                ("/chat-to-us",                "og-logo",       "Talk to us",               "campaign"),
 }
+
+# Pages reached only by a QR code at an event. They get the same generated head
+# as everything else, but they are kept out of the sitemap and out of search:
+# a campaign page competing with /ai or /msp, or still ranking for an event
+# that finished a year ago, is worse than not being found at all.
+UNLISTED = {"chat-to-us"}
 
 ORG = {
     "@type": ["Organization", "ProfessionalService"],
@@ -104,7 +111,7 @@ SERVICES = {
 }
 
 HEAD = """<link rel="canonical" href="{url}">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+{robots}
 <meta name="author" content="AI L3 Tech">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -308,6 +315,8 @@ def write_sitemap():
             "book": ("monthly", "0.7"), "legal": ("yearly", "0.3")}
     rows = []
     for name, (path, _card, _label, kind) in PAGES.items():
+        if name in UNLISTED:
+            continue
         cf, pr = freq.get(kind, ("monthly", "0.5"))
         rows.append(f"  <url><loc>{BASE}{path}</loc>"
                     f"<lastmod>{page_lastmod(name)}</lastmod>"
@@ -354,6 +363,9 @@ def main():
         doc = page.read_text(encoding="utf-8")
         url = BASE + path
         img = f"{BASE}/assets/img/{card}.png"
+        robots = ('<meta name="robots" content="noindex, follow">' if name in UNLISTED else
+                  '<meta name="robots" content="index, follow, max-snippet:-1, '
+                  'max-image-preview:large, max-video-preview:-1">')
         alt = CARD_ALT.get(card, "AI L3 Tech")
         title = html.unescape(re.search(r"<title>(.*?)</title>", doc, re.S).group(1)).strip()
         desc = re.search(r'name="description" content="([^"]*)"', doc).group(1)
@@ -369,7 +381,7 @@ def main():
                         indent=2, ensure_ascii=False)
         head = (authored
                 + HEAD.format(url=url, title=html.escape(title, quote=True), desc=desc, img=img,
-                              alt=html.escape(alt, quote=True))
+                              alt=html.escape(alt, quote=True), robots=robots)
                 + f'\n<script type="application/ld+json">\n{ld}\n</script>\n')
 
         open_at = doc.index("<head>") + len("<head>")

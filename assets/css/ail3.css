@@ -1697,6 +1697,47 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 .booking-fallback[hidden] { display: none; }
 .booking-frame[hidden] { display: none; }
 
+/* ---------- 28b. Event capture page (/chat-to-us) ---------------------- */
+/* A page people reach by scanning a code at a stand. One job: the form. The
+   navigation is cut to the logo and a single action so nothing competes. */
+.nav--lean .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.lean-head { max-width: 46rem; }
+.lean-head .lead { margin-top: var(--space-5); }
+
+.lean-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+.lean-grid--three { grid-template-columns: repeat(3, 1fr); }
+
+.lean-card {
+  background: var(--white);
+  border: 1px solid var(--line-light);
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.lean-card h3 { font-size: clamp(1.15rem, 1.7vw, 1.4rem); letter-spacing: -.02em; }
+.lean-card p {
+  margin: 0;
+  font-size: .9375rem;
+  line-height: 1.65;
+  color: var(--text-on-light-muted);
+}
+
+.lean-vision { max-width: 54rem; }
+.lean-vision h2 { margin-top: var(--space-4); }
+.lean-vision .lead { margin-top: var(--space-5); color: var(--text-on-light-muted); }
+
 /* ---------- 29. Spacing utilities -------------------------------------- */
 /* These exist so no element needs a style attribute, which lets the
    Content-Security-Policy drop 'unsafe-inline' from style-src. */
@@ -1724,6 +1765,9 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
   .door-panel--biz { box-shadow: none; border-top-color: var(--line-dark); }
   .door-inner { width: 100%; }
   .case-grid { grid-template-columns: 1fr; }
+  .lean-grid,
+  .lean-grid--three { grid-template-columns: 1fr; }
+
   .legal-wrap { grid-template-columns: 1fr; gap: var(--space-6); }
   .legal-toc {
     position: static;
