@@ -1736,7 +1736,22 @@ table.tiers tbody tr:last-child td { border-bottom: 0; }
 
 .lean-vision { max-width: 54rem; }
 .lean-vision h2 { margin-top: var(--space-4); }
-.lean-vision .lead { margin-top: var(--space-5); color: var(--text-on-light-muted); }
+/* No colour here. The band rules already give .lead the right value for the
+   surface it sits on, and hardcoding the light one made this block unusable on
+   a dark band: near-black on navy measured 1.60:1. */
+.lean-vision .lead { margin-top: var(--space-5); }
+
+/* Prose links, mirroring .legal a: an underline rather than colour alone, so
+   they survive 1.4.1 and are visible to someone who cannot separate the hue. */
+.lean-vision p a {
+  color: var(--text-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--cyan);
+}
+.band-light .lean-vision p a,
+.band-white .lean-vision p a { color: var(--text-on-light); }
+.lean-vision p a:hover { color: var(--cyan); }
 
 /* ---------- 29. Spacing utilities -------------------------------------- */
 /* These exist so no element needs a style attribute, which lets the

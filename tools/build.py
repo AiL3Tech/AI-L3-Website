@@ -53,13 +53,14 @@ PAGES = {
     "master-services-agreement": ("/master-services-agreement", "og-logo",       "Master Services Agreement", "legal"),
     "book":                      ("/book",                      "og-logo",       "Book a call",              "book"),
     "chat-to-us":                ("/chat-to-us",                "og-logo",       "Talk to us",               "campaign"),
+    "unsubscribe":               ("/unsubscribe",               "og-logo",       "Unsubscribed",             "utility"),
 }
 
 # Pages reached only by a QR code at an event. They get the same generated head
 # as everything else, but they are kept out of the sitemap and out of search:
 # a campaign page competing with /ai or /msp, or still ranking for an event
 # that finished a year ago, is worse than not being found at all.
-UNLISTED = {"chat-to-us"}
+UNLISTED = {"chat-to-us", "unsubscribe"}
 
 ORG = {
     "@type": ["Organization", "ProfessionalService"],
